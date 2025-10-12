@@ -494,30 +494,45 @@ function startViewerCounter() {
         });
     } else {
         console.log('📡 Using API polling for viewer count (Vercel mode)');
+        console.log('🌍 Current URL:', window.location.href);
+        console.log('🔍 Socket.IO available:', typeof io !== 'undefined');
         
         // Fallback to API polling for Vercel
         const pollViewerCount = async () => {
             try {
+                console.log('🔄 Fetching viewer count from API...');
                 const response = await fetch('/api/viewer-count', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
-                    },
-                    // Add timeout
-                    signal: AbortSignal.timeout(5000)
+                    }
                 });
+                
+                console.log('📡 Response status:', response.status);
+                console.log('📡 Response headers:', response.headers);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
                 const data = await response.json();
-                console.log('📊 API viewer count received:', data.count);
+                console.log('📊 API viewer count received:', data);
                 updateViewerCount(data.count);
             } catch (error) {
                 console.log('⚠️ Failed to fetch viewer count:', error);
-                // Fallback to a default number if API fails
-                updateViewerCount(1250);
+                console.log('🔄 Trying alternative approach...');
+                
+                // Try a simple fetch without extra options
+                try {
+                    const simpleResponse = await fetch('/api/viewer-count');
+                    const simpleData = await simpleResponse.json();
+                    console.log('✅ Simple fetch successful:', simpleData);
+                    updateViewerCount(simpleData.count);
+                } catch (simpleError) {
+                    console.log('❌ Simple fetch also failed:', simpleError);
+                    // Fallback to a default number if API fails
+                    updateViewerCount(1250);
+                }
             }
         };
         
