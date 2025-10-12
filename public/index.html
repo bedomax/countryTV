@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country MTV</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Video a pantalla completa -->
+    <div id="player"></div>
+
+    <!-- Info overlay (aparece solo al mover el mouse) -->
+    <div class="info-overlay">
+        <div class="top-bar">
+            <div class="logo">COUNTRY MTV</div>
+            <div class="live">
+                <span class="pulse"></span>
+                LIVE
+            </div>
+        </div>
+
+        <div class="bottom-bar">
+            <div class="song-info">
+                <div class="position" id="position">#1</div>
+                <div class="details">
+                    <h1 id="song-title">Loading...</h1>
+                    <p id="artist-name">Please wait...</p>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="control-btn" id="prev-btn" title="Previous (←)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/>
+                    </svg>
+                </button>
+                <button class="control-btn" id="next-btn" title="Next (→)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+                    </svg>
+                </button>
+                <button class="control-btn" id="playlist-btn" title="Playlist (P)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M15 6H3v2h12V6zm0 4H3v2h12v-2zM3 16h8v-2H3v2zM17 6v8.18c-.31-.11-.65-.18-1-.18-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3V8h3V6h-5z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Playlist sidebar (oculta por defecto) -->
+    <div class="playlist-sidebar" id="playlist-sidebar">
+        <div class="playlist-header">
+            <h2>Up Next</h2>
+            <button class="close-btn" id="close-playlist">×</button>
+        </div>
+        <div class="playlist-content" id="playlist-items">
+            <div class="loading">Loading...</div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
