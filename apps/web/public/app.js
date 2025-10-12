@@ -503,17 +503,14 @@ function startViewerCounter() {
         console.log('🔍 Socket.IO available:', typeof io !== 'undefined');
         console.log('🏢 Detected Vercel:', isVercel);
         
-        // Real session-based viewer counter for Vercel
-        let sessionId = localStorage.getItem('viewer-session-id');
-        
+        // Real IP-based viewer counter for Vercel
         const pollViewerCount = async () => {
             try {
                 console.log('🔄 Fetching real viewer count from API...');
                 const response = await fetch('/api/viewer-count', {
                     method: 'GET',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'X-Session-ID': sessionId || ''
+                        'Content-Type': 'application/json'
                     }
                 });
                 
@@ -526,43 +523,33 @@ function startViewerCounter() {
                 const data = await response.json();
                 console.log('📊 Real viewer count received:', data);
                 
-                // Store session ID if we got one back
-                if (response.headers.get('X-Session-ID')) {
-                    sessionId = response.headers.get('X-Session-ID');
-                    localStorage.setItem('viewer-session-id', sessionId);
-                }
-                
                 updateViewerCount(data.count);
             } catch (error) {
                 console.log('⚠️ Failed to fetch viewer count:', error);
-                // Don't show fallback number, just log the error
                 console.log('❌ Real viewer count unavailable');
             }
         };
         
-        // Send heartbeat to keep session alive
+        // Send heartbeat to keep viewer alive
         const sendHeartbeat = async () => {
-            if (sessionId) {
-                try {
-                    await fetch('/api/viewer-count', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-Session-ID': sessionId
-                        }
-                    });
-                } catch (error) {
-                    console.log('⚠️ Heartbeat failed:', error);
-                }
+            try {
+                await fetch('/api/viewer-count', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                });
+            } catch (error) {
+                console.log('⚠️ Heartbeat failed:', error);
             }
         };
         
-        // Poll every 5 seconds for viewer count
+        // Poll every 10 seconds for viewer count (less frequent to avoid spam)
         pollViewerCount(); // Initial fetch
-        setInterval(pollViewerCount, 5000);
+        setInterval(pollViewerCount, 10000);
         
-        // Send heartbeat every 15 seconds to keep session alive
-        setInterval(sendHeartbeat, 15000);
+        // Send heartbeat every 10 seconds to keep viewer alive
+        setInterval(sendHeartbeat, 10000);
         
         // Send heartbeat on page unload
         window.addEventListener('beforeunload', sendHeartbeat);
