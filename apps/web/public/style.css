@@ -20,6 +20,120 @@ body {
     width: 100vw;
     height: 100vh;
     z-index: 1;
+    filter: contrast(1.1) brightness(1.05);
+}
+
+/* Live TV Effects Overlay */
+.live-effects {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+}
+
+/* Scan lines effect */
+.scan-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 255, 0, 0.03) 2px,
+        rgba(0, 255, 0, 0.03) 4px
+    );
+    animation: scanLines 0.1s linear infinite;
+}
+
+@keyframes scanLines {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(4px); }
+}
+
+/* TV noise/static effect */
+.tv-noise {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
+    animation: tvNoise 0.15s linear infinite;
+}
+
+@keyframes tvNoise {
+    0%, 100% { 
+        background-image: 
+            radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+            radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+            radial-gradient(circle at 40% 40%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
+    }
+    25% { 
+        background-image: 
+            radial-gradient(circle at 60% 20%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+            radial-gradient(circle at 20% 60%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+            radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
+    }
+    50% { 
+        background-image: 
+            radial-gradient(circle at 40% 90%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+            radial-gradient(circle at 90% 40%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+            radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
+    }
+    75% { 
+        background-image: 
+            radial-gradient(circle at 80% 70%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+            radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.02) 0%, transparent 50%),
+            radial-gradient(circle at 70% 10%, rgba(255, 255, 255, 0.01) 0%, transparent 50%);
+    }
+}
+
+/* Vignette effect */
+.vignette {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(ellipse at center, transparent 0%, transparent 60%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+/* Signal interference lines */
+.signal-interference {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 98%,
+        rgba(255, 255, 255, 0.1) 98%,
+        rgba(255, 255, 255, 0.1) 100%
+    );
+    animation: signalInterference 2s ease-in-out infinite;
+}
+
+@keyframes signalInterference {
+    0%, 100% { 
+        opacity: 0;
+        transform: translateX(0);
+    }
+    50% { 
+        opacity: 1;
+        transform: translateX(10px);
+    }
 }
 
 #player iframe {
@@ -28,7 +142,7 @@ body {
     border: none;
 }
 
-/* Overlay de información */
+/* Overlay de información - always visible */
 .info-overlay {
     position: fixed;
     top: 0;
@@ -36,14 +150,8 @@ body {
     width: 100%;
     height: 100%;
     z-index: 10;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    pointer-events: none;
-}
-
-body:hover .info-overlay,
-body.show-ui .info-overlay {
     opacity: 1;
+    transition: opacity 0.3s ease;
     pointer-events: all;
 }
 
@@ -77,10 +185,30 @@ body:hover {
     gap: 8px;
     font-size: 0.9rem;
     font-weight: 700;
-    background: rgba(255, 0, 0, 0.2);
+    background: linear-gradient(45deg, rgba(255, 0, 0, 0.3), rgba(255, 50, 50, 0.2));
     padding: 8px 16px;
     border-radius: 20px;
-    border: 2px solid rgba(255, 0, 0, 0.6);
+    border: 2px solid rgba(255, 0, 0, 0.8);
+    box-shadow: 
+        0 0 20px rgba(255, 0, 0, 0.5),
+        inset 0 0 10px rgba(255, 255, 255, 0.1);
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    animation: liveGlow 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes liveGlow {
+    0% {
+        box-shadow: 
+            0 0 20px rgba(255, 0, 0, 0.5),
+            inset 0 0 10px rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 0, 0, 0.8);
+    }
+    100% {
+        box-shadow: 
+            0 0 30px rgba(255, 0, 0, 0.8),
+            inset 0 0 15px rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 100, 100, 1);
+    }
 }
 
 .pulse {
@@ -88,7 +216,8 @@ body:hover {
     height: 8px;
     background: #ff0000;
     border-radius: 50%;
-    animation: pulse 2s infinite;
+    animation: pulse 1.2s infinite, pulseGlow 1.5s ease-in-out infinite alternate;
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
 }
 
 @keyframes pulse {
@@ -98,7 +227,16 @@ body:hover {
     }
     50% {
         opacity: 0.3;
-        transform: scale(1.3);
+        transform: scale(1.4);
+    }
+}
+
+@keyframes pulseGlow {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+    }
+    100% {
+        box-shadow: 0 0 20px rgba(255, 0, 0, 1), 0 0 30px rgba(255, 100, 100, 0.6);
     }
 }
 
@@ -153,7 +291,7 @@ body:hover {
     width: 60px;
     height: 60px;
     border: none;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(10px);
     border-radius: 50%;
     color: #fff;
@@ -162,13 +300,15 @@ body:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid rgba(255, 255, 255, 0.2);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
 }
 
 .control-btn:hover {
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.3);
     transform: scale(1.1);
-    border-color: rgba(255, 255, 255, 0.4);
+    border-color: rgba(255, 255, 255, 0.5);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
 }
 
 .control-btn:active {
@@ -342,12 +482,146 @@ body:hover {
     }
 }
 
-/* Hide cursor when idle */
-body.idle {
-    cursor: none !important;
+/* All elements always visible - no hiding functionality */
+
+/* Yeehaw Button */
+.yeehaw-button {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    opacity: 1;
+    pointer-events: all;
 }
 
-body.idle .info-overlay {
+.yeehaw-button.hidden {
     opacity: 0;
     pointer-events: none;
+    transform: translate(-50%, -50%) scale(0.8);
+}
+
+.yeehaw-content {
+    background: linear-gradient(45deg, #ff6b35, #f7931e, #ffd700);
+    padding: 30px 50px;
+    border-radius: 25px;
+    text-align: center;
+    box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.3),
+        0 0 50px rgba(255, 107, 53, 0.5),
+        inset 0 0 20px rgba(255, 255, 255, 0.2);
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    animation: yeehawPulse 2s ease-in-out infinite;
+    transition: all 0.3s ease;
+}
+
+.yeehaw-content:hover {
+    transform: scale(1.05);
+    box-shadow: 
+        0 15px 40px rgba(0, 0, 0, 0.4),
+        0 0 70px rgba(255, 107, 53, 0.7),
+        inset 0 0 25px rgba(255, 255, 255, 0.3);
+}
+
+.yeehaw-text {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: white;
+    text-shadow: 
+        0 2px 10px rgba(0, 0, 0, 0.5),
+        0 0 20px rgba(255, 255, 255, 0.3);
+    margin-bottom: 8px;
+    letter-spacing: 2px;
+}
+
+.yeehaw-subtitle {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    letter-spacing: 1px;
+}
+
+@keyframes yeehawPulse {
+    0%, 100% {
+        box-shadow: 
+            0 10px 30px rgba(0, 0, 0, 0.3),
+            0 0 50px rgba(255, 107, 53, 0.5),
+            inset 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+    50% {
+        box-shadow: 
+            0 15px 40px rgba(0, 0, 0, 0.4),
+            0 0 70px rgba(255, 107, 53, 0.8),
+            inset 0 0 25px rgba(255, 255, 255, 0.3);
+    }
+}
+
+/* Live TV Glitch Effects */
+.signal-glitch {
+    animation: signalGlitch 0.2s ease-in-out;
+}
+
+@keyframes signalGlitch {
+    0%, 100% {
+        filter: contrast(1.1) brightness(1.05);
+        transform: translateX(0);
+    }
+    20% {
+        filter: contrast(1.5) brightness(1.2) hue-rotate(90deg);
+        transform: translateX(-2px);
+    }
+    40% {
+        filter: contrast(0.8) brightness(0.9) hue-rotate(-90deg);
+        transform: translateX(2px);
+    }
+    60% {
+        filter: contrast(1.3) brightness(1.1) hue-rotate(180deg);
+        transform: translateX(-1px);
+    }
+    80% {
+        filter: contrast(0.9) brightness(0.95) hue-rotate(270deg);
+        transform: translateX(1px);
+    }
+}
+
+.brightness-flicker {
+    animation: brightnessFlicker 0.15s ease-in-out;
+}
+
+@keyframes brightnessFlicker {
+    0%, 100% {
+        filter: contrast(1.1) brightness(1.05);
+    }
+    50% {
+        filter: contrast(1.2) brightness(1.3);
+    }
+}
+
+/* Enhanced live effects for glitch */
+.live-effects.signal-glitch .scan-lines {
+    animation-duration: 0.05s;
+}
+
+.live-effects.signal-glitch .tv-noise {
+    opacity: 0.3;
+}
+
+/* Subtle chromatic aberration effect */
+#player {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    filter: contrast(1.1) brightness(1.05);
+    transition: filter 0.1s ease;
+}
+
+#player.signal-glitch {
+    filter: contrast(1.3) brightness(1.2) saturate(1.5);
 }
