@@ -466,7 +466,7 @@ function triggerBrightnessFlicker() {
     }, 150);
 }
 
-// Real-time Viewer Counter (WebSockets locally, API on Vercel)
+// Real-time Viewer Counter (WebSockets locally, Real sessions on Vercel)
 function startViewerCounter() {
     const viewerCountElement = document.getElementById('viewer-count');
     if (!viewerCountElement) return;
@@ -503,48 +503,69 @@ function startViewerCounter() {
         console.log('🔍 Socket.IO available:', typeof io !== 'undefined');
         console.log('🏢 Detected Vercel:', isVercel);
         
-        // Fallback to API polling for Vercel
+        // Real session-based viewer counter for Vercel
+        let sessionId = localStorage.getItem('viewer-session-id');
+        
         const pollViewerCount = async () => {
             try {
-                console.log('🔄 Fetching viewer count from API...');
+                console.log('🔄 Fetching real viewer count from API...');
                 const response = await fetch('/api/viewer-count', {
                     method: 'GET',
                     headers: {
                         'Content-Type': 'application/json',
+                        'X-Session-ID': sessionId || ''
                     }
                 });
                 
                 console.log('📡 Response status:', response.status);
-                console.log('📡 Response headers:', response.headers);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
                 }
                 
                 const data = await response.json();
-                console.log('📊 API viewer count received:', data);
+                console.log('📊 Real viewer count received:', data);
+                
+                // Store session ID if we got one back
+                if (response.headers.get('X-Session-ID')) {
+                    sessionId = response.headers.get('X-Session-ID');
+                    localStorage.setItem('viewer-session-id', sessionId);
+                }
+                
                 updateViewerCount(data.count);
             } catch (error) {
                 console.log('⚠️ Failed to fetch viewer count:', error);
-                console.log('🔄 Trying alternative approach...');
-                
-                // Try a simple fetch without extra options
+                // Don't show fallback number, just log the error
+                console.log('❌ Real viewer count unavailable');
+            }
+        };
+        
+        // Send heartbeat to keep session alive
+        const sendHeartbeat = async () => {
+            if (sessionId) {
                 try {
-                    const simpleResponse = await fetch('/api/viewer-count');
-                    const simpleData = await simpleResponse.json();
-                    console.log('✅ Simple fetch successful:', simpleData);
-                    updateViewerCount(simpleData.count);
-                } catch (simpleError) {
-                    console.log('❌ Simple fetch also failed:', simpleError);
-                    // Fallback to a default number if API fails
-                    updateViewerCount(1250);
+                    await fetch('/api/viewer-count', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-Session-ID': sessionId
+                        }
+                    });
+                } catch (error) {
+                    console.log('⚠️ Heartbeat failed:', error);
                 }
             }
         };
         
-        // Poll every 5 seconds
+        // Poll every 5 seconds for viewer count
         pollViewerCount(); // Initial fetch
         setInterval(pollViewerCount, 5000);
+        
+        // Send heartbeat every 15 seconds to keep session alive
+        setInterval(sendHeartbeat, 15000);
+        
+        // Send heartbeat on page unload
+        window.addEventListener('beforeunload', sendHeartbeat);
     }
 }
 
