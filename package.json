@@ -1,12 +1,16 @@
 {
-  "name": "my-stagehand-app",
+  "name": "country-mtv",
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "start": "tsx index.ts",
-    "scrape": "tsx scraper-with-youtube.ts",
-    "serve": "tsx server.ts",
-    "dev": "npm run scrape && npm run serve"
+    "scrape": "tsx backend/scrapers/scraper-with-youtube.ts",
+    "scrape:simple": "tsx backend/scrapers/simple-ai-scraper.ts",
+    "scrape:stagehand": "tsx backend/scrapers/stagehand-scraper.ts",
+    "serve": "tsx backend/server/server.ts",
+    "dev": "npm run scrape && npm run serve",
+    "web": "npm run serve",
+    "appletv": "echo 'AppleTV app coming soon...'"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "latest",

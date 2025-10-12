@@ -40,6 +40,8 @@ Open http://localhost:3000
 npm run scrape    # Fetch Billboard songs + YouTube videos
 npm run serve     # Start web server
 npm run dev       # Do both
+npm run web       # Start web app
+npm run appletv   # AppleTV app (coming soon)
 ```
 
 ## ⌨️ Controls
@@ -62,19 +64,23 @@ npm run dev       # Do both
 
 ```
 countryTV/
-├── public/
-│   ├── index.html           # Main page
-│   ├── style.css            # Fullscreen styles
-│   ├── app.js               # Player logic
-│   └── playlist.json        # Song data (generated)
-├── scraper-with-youtube.ts  # Main scraper
-├── server.ts                # Express server
+├── apps/
+│   ├── web/              # Web application
+│   │   ├── public/       # Static files (HTML, CSS, JS)
+│   │   └── src/          # Future: build system
+│   └── appletv/          # AppleTV app (coming soon)
+│       └── src/
+├── backend/
+│   ├── server/           # Express web server
+│   ├── scrapers/         # Billboard scrapers
+│   └── shared/           # Shared utilities
+├── docs/                 # Documentation
 └── package.json
 ```
 
 ## 🎨 Customization
 
-**Change song count** - Edit `scraper-with-youtube.ts`:
+**Change song count** - Edit `backend/scrapers/scraper-with-youtube.ts`:
 ```typescript
 minItems: 5,  // Change to 10, 20, etc.
 maxItems: 5
@@ -82,11 +88,22 @@ maxItems: 5
 
 **Update playlist** - Run `npm run scrape` and reload the page.
 
+## 🔮 Roadmap
+
+- [x] Web app with fullscreen player
+- [x] AI-powered scraping
+- [x] YouTube integration
+- [ ] More songs (Top 10, 20, 50)
+- [ ] Multiple genres (Rock, Pop, Hip-Hop)
+- [ ] AppleTV native app
+- [ ] User favorites
+- [ ] Playlist sharing
+
 ## 🐛 Troubleshooting
 
 **No videos showing?**
 - Run `npm run scrape` first
-- Check if `public/playlist.json` exists
+- Check if `apps/web/public/playlist.json` exists
 
 **OpenAI quota error?**
 - Verify credits at https://platform.openai.com/account/billing

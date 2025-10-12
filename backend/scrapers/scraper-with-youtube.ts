@@ -144,11 +144,11 @@ ${content.substring(0, 8000)}` // Limit content size
     };
 
     fs.writeFileSync(
-      'public/playlist.json',
+      'apps/web/public/playlist.json',
       JSON.stringify(outputData, null, 2)
     );
 
-    console.log('\n✅ Playlist saved to public/playlist.json');
+    console.log('\n✅ Playlist saved to apps/web/public/playlist.json');
     console.log('🎉 Ready to launch the web app!');
 
   } catch (error) {
