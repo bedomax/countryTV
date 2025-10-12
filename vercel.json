@@ -1,0 +1,32 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "backend/server/server.ts",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "apps/web/public/**/*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/socket.io/(.*)",
+      "dest": "/backend/server/server.ts"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/apps/web/public/$1"
+    },
+    {
+      "src": "/",
+      "dest": "/apps/web/public/index.html"
+    }
+  ],
+  "functions": {
+    "backend/server/server.ts": {
+      "maxDuration": 30
+    }
+  }
+}

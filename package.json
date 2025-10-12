@@ -11,7 +11,8 @@
     "serve": "tsx backend/server/server.ts",
     "dev": "npm run scrape && npm run serve",
     "web": "npm run serve",
-    "appletv": "echo 'AppleTV app coming soon...'"
+    "appletv": "echo 'AppleTV app coming soon...'",
+    "vercel-build": "npm run scrape"
   },
   "dependencies": {
     "@browserbasehq/stagehand": "latest",
@@ -19,7 +20,8 @@
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
     "openai": "^6.3.0",
-    "playwright": "^1.56.0"
+    "playwright": "^1.56.0",
+    "socket.io": "^4.8.1"
   },
   "devDependencies": {
     "tsx": "^4.19.2",

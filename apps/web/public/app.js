@@ -37,6 +37,7 @@ async function loadPlaylist() {
         updateNowPlaying(0);
         setupUI();
         setupYeehawButton();
+        startViewerCounter();
         
         // Autoplay is handled by YouTube player
     } catch (error) {
@@ -463,4 +464,66 @@ function triggerBrightnessFlicker() {
     setTimeout(() => {
         player.classList.remove('brightness-flicker');
     }, 150);
+}
+
+// Real-time Viewer Counter (WebSockets locally, API on Vercel)
+function startViewerCounter() {
+    const viewerCountElement = document.getElementById('viewer-count');
+    if (!viewerCountElement) return;
+    
+    // Check if Socket.IO is available (local development)
+    if (typeof io !== 'undefined') {
+        console.log('🔗 Using WebSockets for real-time viewer count');
+        
+        // Connect to Socket.IO server
+        const socket = io();
+        
+        // Listen for viewer count updates from server
+        socket.on('viewerCount', (count) => {
+            console.log('📊 Viewer count updated:', count);
+            updateViewerCount(count);
+        });
+        
+        // Handle connection events
+        socket.on('connect', () => {
+            console.log('🔗 Connected to server');
+        });
+        
+        socket.on('disconnect', () => {
+            console.log('❌ Disconnected from server');
+        });
+    } else {
+        console.log('📡 Using API polling for viewer count (Vercel mode)');
+        
+        // Fallback to API polling for Vercel
+        const pollViewerCount = async () => {
+            try {
+                const response = await fetch('/api/viewer-count');
+                const data = await response.json();
+                updateViewerCount(data.count);
+            } catch (error) {
+                console.log('⚠️ Failed to fetch viewer count:', error);
+            }
+        };
+        
+        // Poll every 5 seconds
+        pollViewerCount(); // Initial fetch
+        setInterval(pollViewerCount, 5000);
+    }
+}
+
+// Helper function to update viewer count display
+function updateViewerCount(count) {
+    const viewerCountElement = document.getElementById('viewer-count');
+    if (!viewerCountElement) return;
+    
+    // Format number with commas
+    const formattedCount = count.toLocaleString();
+    viewerCountElement.textContent = formattedCount;
+    
+    // Add a subtle pulse effect when number changes
+    viewerCountElement.style.transform = 'scale(1.1)';
+    setTimeout(() => {
+        viewerCountElement.style.transform = 'scale(1)';
+    }, 200);
 }
