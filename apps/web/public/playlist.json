@@ -1,35 +1,41 @@
 {
-  "lastUpdated": "2025-10-12T01:08:02.939Z",
+  "lastUpdated": "2025-10-12T01:20:29.779Z",
+  "source": "Wikipedia - List of Billboard number-one country songs of 2025",
   "songs": [
     {
       "position": 1,
-      "title": "Fancy Like",
-      "artist": "Walker Hayes",
-      "youtubeId": "G_zuB-ogIBw"
+      "title": "A Bar Song (Tipsy)",
+      "artist": "Shaboozey",
+      "date": "2025-10-12",
+      "youtubeId": "t7bQwwqW-Hc"
     },
     {
       "position": 2,
-      "title": "Leave Before You Love Me",
-      "artist": "Marshmello X Jonas Brothers",
-      "youtubeId": "hmUyEDG7Jy0"
+      "title": "I'm the Problem",
+      "artist": "Morgan Wallen",
+      "date": "2025-10-12",
+      "youtubeId": "HwThuMZ80RA"
     },
     {
       "position": 3,
-      "title": "Blame It On You",
-      "artist": "Jason Aldean",
-      "youtubeId": "o5gucwLAxWA"
+      "title": "The Giver",
+      "artist": "Chappell Roan",
+      "date": "2025-10-12",
+      "youtubeId": "DubtPdXXjew"
     },
     {
       "position": 4,
-      "title": "One Beer",
-      "artist": "HARDY X Lauren Alaina X Devin Dawson",
-      "youtubeId": "SWN8R1xw8IA"
+      "title": "All the Way",
+      "artist": "BigXthaPlug featuring Bailey Zimmerman",
+      "date": "2025-10-12",
+      "youtubeId": "7kyHvPNbugk"
     },
     {
       "position": 5,
-      "title": "Glad You Exist",
-      "artist": "Dan + Shay",
-      "youtubeId": "eQzcHDAbfm8"
+      "title": "What I Want",
+      "artist": "Morgan Wallen featuring Tate McRae",
+      "date": "2025-10-12",
+      "youtubeId": "2nN70U71iQ8"
     }
   ]
 }

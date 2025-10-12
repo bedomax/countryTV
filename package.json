@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "scrape": "tsx backend/scrapers/scraper-with-youtube.ts",
+    "scrape": "tsx backend/scrapers/wikipedia-scraper.ts",
+    "scrape:billboard": "tsx backend/scrapers/scraper-with-youtube.ts",
     "scrape:simple": "tsx backend/scrapers/simple-ai-scraper.ts",
     "scrape:stagehand": "tsx backend/scrapers/stagehand-scraper.ts",
     "serve": "tsx backend/server/server.ts",
