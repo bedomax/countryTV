@@ -23,10 +23,5 @@
       "src": "/",
       "dest": "/apps/web/public/index.html"
     }
-  ],
-  "functions": {
-    "backend/server/server.ts": {
-      "maxDuration": 30
-    }
-  }
+  ]
 }
