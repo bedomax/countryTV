@@ -472,7 +472,12 @@ function startViewerCounter() {
     if (!viewerCountElement) return;
     
     // Check if Socket.IO is available (local development)
-    if (typeof io !== 'undefined') {
+    // Also check if we're on Vercel by domain or if Socket.IO fails
+    const isVercel = window.location.hostname.includes('vercel.app') || 
+                     window.location.hostname.includes('vercel.com') ||
+                     typeof io === 'undefined';
+    
+    if (!isVercel && typeof io !== 'undefined') {
         console.log('🔗 Using WebSockets for real-time viewer count');
         
         // Connect to Socket.IO server
@@ -496,6 +501,7 @@ function startViewerCounter() {
         console.log('📡 Using API polling for viewer count (Vercel mode)');
         console.log('🌍 Current URL:', window.location.href);
         console.log('🔍 Socket.IO available:', typeof io !== 'undefined');
+        console.log('🏢 Detected Vercel:', isVercel);
         
         // Fallback to API polling for Vercel
         const pollViewerCount = async () => {
