@@ -498,11 +498,26 @@ function startViewerCounter() {
         // Fallback to API polling for Vercel
         const pollViewerCount = async () => {
             try {
-                const response = await fetch('/api/viewer-count');
+                const response = await fetch('/api/viewer-count', {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    // Add timeout
+                    signal: AbortSignal.timeout(5000)
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
                 const data = await response.json();
+                console.log('📊 API viewer count received:', data.count);
                 updateViewerCount(data.count);
             } catch (error) {
                 console.log('⚠️ Failed to fetch viewer count:', error);
+                // Fallback to a default number if API fails
+                updateViewerCount(1250);
             }
         };
         

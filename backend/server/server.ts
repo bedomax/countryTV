@@ -62,16 +62,28 @@ if (io) {
 
 // API endpoint for viewer count (for Vercel compatibility)
 app.get('/api/viewer-count', (req, res) => {
+  // Set CORS headers for Vercel
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
+  
   if (isVercel) {
     // In Vercel, return a simulated count based on time
     const baseCount = 1200;
     const timeVariation = Math.floor(Date.now() / 10000) % 100;
     const viewerCount = baseCount + timeVariation;
+    console.log(`📊 Vercel simulated viewer count: ${viewerCount}`);
     res.json({ count: viewerCount });
   } else {
     // In local development, return real count
+    console.log(`📊 Local real viewer count: ${viewerCount}`);
     res.json({ count: viewerCount });
   }
+});
+
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
 // Start server
