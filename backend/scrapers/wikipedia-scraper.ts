@@ -53,10 +53,12 @@ async function scrapeWikipedia(): Promise<Song[]> {
 
   try {
     for (const year of years) {
-      // Scrape both Hot Country Songs and Country Airplay charts
+      // Scrape multiple country music charts for more songs
       const urls = [
-        { url: `https://en.wikipedia.org/wiki/List_of_Billboard_number-one_country_songs_of_${year}`, name: 'Hot Country Songs' },
-        { url: `https://en.wikipedia.org/wiki/List_of_number-one_country_songs_of_${year}_(U.S.)`, name: 'Country Airplay' }
+        { url: `https://en.wikipedia.org/wiki/List_of_Billboard_number-one_country_songs_of_${year}`, name: 'Hot Country Songs #1' },
+        { url: `https://en.wikipedia.org/wiki/List_of_number-one_country_songs_of_${year}_(U.S.)`, name: 'Country Airplay #1' },
+        { url: `https://en.wikipedia.org/wiki/Billboard_Hot_Country_Songs_${year}`, name: 'Hot Country Songs Top' },
+        { url: `https://en.wikipedia.org/wiki/Billboard_Country_Airplay_${year}`, name: 'Country Airplay Top' }
       ];
 
       for (const { url, name } of urls) {
@@ -96,6 +98,11 @@ async function scrapeWikipedia(): Promise<Song[]> {
                     }
                   }
 
+                  // If still no title, try to get from any text in the cell
+                  if (!title) {
+                    title = titleCellText.trim();
+                  }
+
                   // Get artist from second cell, removing reference numbers
                   let artistCellText = cells[1].textContent || '';
                   let artist = artistCellText
@@ -114,10 +121,13 @@ async function scrapeWikipedia(): Promise<Song[]> {
                   // Clean up title and artist
                   title = title.replace(/\[\d+\]/g, '').trim();
 
+                  // More lenient filtering to get more songs
                   if (title && artist &&
-                      title !== 'Song' && title !== 'Title' &&
-                      artist !== 'Artist' && artist !== 'Performer' &&
-                      artist.length > 0 && title.length > 0) {
+                      title !== 'Song' && title !== 'Title' && title !== 'Date' &&
+                      artist !== 'Artist' && artist !== 'Performer' && artist !== 'Weeks' &&
+                      artist.length > 0 && title.length > 0 &&
+                      !title.match(/^\d+$/) && // Skip pure numbers
+                      !artist.match(/^\d+$/)) { // Skip pure numbers
                     yearSongs.push({
                       title: title,
                       artist: artist,
@@ -149,15 +159,24 @@ async function scrapeWikipedia(): Promise<Song[]> {
 
     await browser.close();
 
-    // Convert to array and number them
-    const uniqueSongs = Array.from(allSongs.values()).map((song, index) => ({
+    // Convert to array and shuffle them randomly
+    const uniqueSongs = Array.from(allSongs.values());
+    
+    // Shuffle the array using Fisher-Yates algorithm
+    for (let i = uniqueSongs.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [uniqueSongs[i], uniqueSongs[j]] = [uniqueSongs[j], uniqueSongs[i]];
+    }
+    
+    // Number them after shuffling
+    const shuffledSongs = uniqueSongs.map((song, index) => ({
       position: index + 1,
       title: song.title,
       artist: song.artist,
       date: song.year
     }));
 
-    return uniqueSongs;
+    return shuffledSongs;
 
   } catch (error) {
     console.error('❌ Error scraping Wikipedia:', error);
@@ -168,8 +187,8 @@ async function scrapeWikipedia(): Promise<Song[]> {
 
 async function main() {
   console.log('🚀 Starting Wikipedia Country Songs Scraper...');
-  console.log('📅 Scraping Billboard #1 Country songs from 2020-2025');
-  console.log('📊 Sources: Hot Country Songs + Country Airplay\n');
+  console.log('📅 Scraping Billboard Country songs from 2020-2025');
+  console.log('📊 Sources: Hot Country Songs + Country Airplay (Top Charts)\n');
 
   // Scrape songs from Wikipedia
   const songs = await scrapeWikipedia();
@@ -179,7 +198,7 @@ async function main() {
     return;
   }
 
-  console.log(`\n🎵 FOUND ${songs.length} UNIQUE BILLBOARD #1 COUNTRY SONGS:\n`);
+  console.log(`\n🎵 FOUND ${songs.length} UNIQUE BILLBOARD COUNTRY SONGS (SHUFFLED):\n`);
   console.log('=' .repeat(60));
 
   songs.slice(0, 15).forEach(song => {
@@ -212,7 +231,7 @@ async function main() {
   // Save to JSON file for the web app
   const outputData = {
     lastUpdated: new Date().toISOString(),
-    source: 'Wikipedia - Billboard #1 Country Songs (2020-2025) - Hot Country Songs + Country Airplay',
+    source: 'Wikipedia - Billboard Country Songs (2020-2025) - Hot Country Songs + Country Airplay (Top Charts)',
     songs: songs.filter(song => song.youtubeId) // Only include songs with videos
   };
 
