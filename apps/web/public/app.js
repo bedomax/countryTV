@@ -19,13 +19,16 @@ async function loadPlaylist() {
     try {
         const response = await fetch('playlist.json');
         const data = await response.json();
-        playlist = data.songs.filter(song => song.youtubeId);
+        const filteredSongs = data.songs.filter(song => song.youtubeId);
 
-        if (playlist.length === 0) {
+        if (filteredSongs.length === 0) {
             document.getElementById('playlist-items').innerHTML =
                 '<div class="loading">No videos available. Please run the scraper first.</div>';
             return;
         }
+
+        // Shuffle the playlist randomly using Fisher-Yates algorithm
+        playlist = shuffleArray([...filteredSongs]);
 
         renderPlaylist();
         initPlayer(playlist[0].youtubeId);
@@ -36,6 +39,16 @@ async function loadPlaylist() {
         document.getElementById('playlist-items').innerHTML =
             '<div class="loading">Error loading playlist. Run: npx tsx scraper-with-youtube.ts</div>';
     }
+}
+
+// Fisher-Yates shuffle algorithm
+function shuffleArray(array) {
+    const shuffled = [...array];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled;
 }
 
 // Initialize YouTube player

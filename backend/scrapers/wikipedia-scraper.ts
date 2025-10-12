@@ -159,24 +159,15 @@ async function scrapeWikipedia(): Promise<Song[]> {
 
     await browser.close();
 
-    // Convert to array and shuffle them randomly
-    const uniqueSongs = Array.from(allSongs.values());
-    
-    // Shuffle the array using Fisher-Yates algorithm
-    for (let i = uniqueSongs.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [uniqueSongs[i], uniqueSongs[j]] = [uniqueSongs[j], uniqueSongs[i]];
-    }
-    
-    // Number them after shuffling
-    const shuffledSongs = uniqueSongs.map((song, index) => ({
+    // Convert to array and number them (keep chronological order from Wikipedia)
+    const uniqueSongs = Array.from(allSongs.values()).map((song, index) => ({
       position: index + 1,
       title: song.title,
       artist: song.artist,
       date: song.year
     }));
 
-    return shuffledSongs;
+    return uniqueSongs;
 
   } catch (error) {
     console.error('❌ Error scraping Wikipedia:', error);
@@ -198,7 +189,7 @@ async function main() {
     return;
   }
 
-  console.log(`\n🎵 FOUND ${songs.length} UNIQUE BILLBOARD COUNTRY SONGS (SHUFFLED):\n`);
+  console.log(`\n🎵 FOUND ${songs.length} UNIQUE BILLBOARD COUNTRY SONGS:\n`);
   console.log('=' .repeat(60));
 
   songs.slice(0, 15).forEach(song => {
