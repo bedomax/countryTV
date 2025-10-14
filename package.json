@@ -8,6 +8,7 @@
     "scrape:billboard": "tsx backend/scrapers/scraper-with-youtube.ts",
     "scrape:simple": "tsx backend/scrapers/simple-ai-scraper.ts",
     "scrape:stagehand": "tsx backend/scrapers/stagehand-scraper.ts",
+    "scrape:youtube": "tsx backend/scrapers/youtube-playlist-scraper.ts",
     "serve": "tsx backend/server/server.ts",
     "dev": "npm run scrape && npm run serve",
     "web": "npm run serve",
@@ -19,11 +20,13 @@
     "@types/express": "^5.0.3",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
+    "node-cron": "^4.2.1",
     "openai": "^6.3.0",
     "playwright": "^1.56.0",
     "socket.io": "^4.8.1"
   },
   "devDependencies": {
+    "@types/node-cron": "^3.0.11",
     "tsx": "^4.19.2",
     "typescript": "^5.0.0"
   }

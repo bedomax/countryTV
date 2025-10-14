@@ -3,6 +3,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { createServer } from 'http';
 import { Server as SocketIOServer } from 'socket.io';
+import { autoUpdateService } from '../services/auto-update-service.js';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -86,6 +88,49 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// Auto-update status endpoint
+app.get('/api/update-status', (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.json(autoUpdateService.getStatus());
+});
+
+// Manual update trigger endpoint
+app.post('/api/trigger-update', async (req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  try {
+    // Trigger update asynchronously
+    autoUpdateService.triggerUpdate();
+    res.json({ status: 'update triggered', message: 'Playlist update started' });
+  } catch (error) {
+    res.status(500).json({ status: 'error', message: 'Failed to trigger update' });
+  }
+});
+
+// Get new songs endpoint
+app.get('/api/new-songs', (_req, res) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  try {
+    const PLAYLIST_FILE = path.join(__dirname, '../../apps/web/public/playlist.json');
+
+    if (fs.existsSync(PLAYLIST_FILE)) {
+      const data = fs.readFileSync(PLAYLIST_FILE, 'utf-8');
+      const playlist = JSON.parse(data);
+      const newSongs = playlist.songs.filter((song: any) => song.isNew === true);
+
+      res.json({
+        count: newSongs.length,
+        songs: newSongs,
+        lastUpdated: playlist.lastUpdated
+      });
+    } else {
+      res.json({ count: 0, songs: [], lastUpdated: null });
+    }
+  } catch (error) {
+    console.error('Error reading new songs:', error);
+    res.status(500).json({ error: 'Failed to read new songs' });
+  }
+});
+
 // Start server
 server.listen(PORT, () => {
   console.log('🎸 Country TV Server is running!');
@@ -104,4 +149,10 @@ server.listen(PORT, () => {
   console.log('   - Space: Play/Pause');
   console.log('');
   console.log('   Press Ctrl+C to stop the server');
+  console.log('');
+
+  // Start auto-update service (only if not in Vercel)
+  if (!isVercel) {
+    autoUpdateService.start();
+  }
 });

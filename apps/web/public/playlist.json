@@ -1,272 +1,406 @@
 {
-  "lastUpdated": "2025-10-12T02:00:48.884Z",
-  "source": "Wikipedia - Billboard Country Songs (2020-2025) - Hot Country Songs + Country Airplay (Top Charts)",
+  "lastUpdated": "2025-10-14T04:46:55.400Z",
+  "source": "YouTube Playlist - Country Music 24/7",
   "songs": [
     {
       "position": 1,
-      "title": "A Bar Song (Tipsy)",
-      "artist": "Shaboozey",
-      "date": "2025",
-      "youtubeId": "t7bQwwqW-Hc"
+      "title": "Last One To Know (Official Music Video)",
+      "artist": "Gavin Adcock",
+      "youtubeId": "dQmO2ZGK5nM",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 2,
-      "title": "I'm the Problem",
-      "artist": "Morgan Wallen",
-      "date": "2025",
-      "youtubeId": "HwThuMZ80RA"
+      "title": "Backup Plan (Lyric Video)",
+      "artist": "Bailey Zimmerman with Luke Combs",
+      "youtubeId": "Yyd5kmngrOU",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 3,
-      "title": "The Giver",
-      "artist": "Chappell Roan",
-      "date": "2025",
-      "youtubeId": "DubtPdXXjew"
+      "title": "GOD & GUNS N’ ROSES (Visualizer)",
+      "artist": "Tyler Braden",
+      "youtubeId": "TPZvprSIB8k",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 4,
-      "title": "All the Way",
-      "artist": "BigXthaPlug featuring Bailey Zimmerman",
-      "date": "2025",
-      "youtubeId": "7kyHvPNbugk"
+      "title": "House Again (Official Video)",
+      "artist": "Hudson Westbrook",
+      "youtubeId": "5i7lrVrvykI",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 5,
-      "title": "What I Want",
-      "artist": "Morgan Wallen featuring Tate McRae",
-      "date": "2025",
-      "youtubeId": "2nN70U71iQ8"
+      "title": "What I Want (feat. Tate McRae) (Lyric Video)",
+      "artist": "Morgan Wallen",
+      "youtubeId": "hNrwlzBeFN8",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 6,
-      "title": "tbc",
-      "artist": "tbc",
-      "date": "2025",
-      "youtubeId": "QEzp7rlwbiE"
+      "title": "Madeline (feat. Gabriella Rose)",
+      "artist": "Zach Bryan",
+      "youtubeId": "sWD32cCK7b8",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 7,
-      "title": "I Remember Everything",
-      "artist": "Zach Bryan featuring Kacey Musgraves",
-      "date": "2024",
-      "youtubeId": "ZVVvJjwzl6c"
+      "title": "Bottomland (Official Music Video)",
+      "artist": "HARDY",
+      "youtubeId": "1yabJ3XUlGE",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 8,
-      "title": "Texas Hold 'Em",
-      "artist": "Beyoncé",
-      "date": "2024",
-      "youtubeId": "238Z4YaAr1g"
+      "title": "The Fall",
+      "artist": "Unknown Artist",
+      "youtubeId": "HkbiInYYt1Q",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 9,
-      "title": "I Had Some Help",
-      "artist": "Post Malone featuring Morgan Wallen",
-      "date": "2024",
-      "youtubeId": "4QIZE708gJ4"
+      "title": "After All The Bars Are Closed (Official Music Video)",
+      "artist": "Thomas Rhett",
+      "youtubeId": "s5onNkP_quc",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 10,
-      "title": "Love Somebody",
-      "artist": "Morgan Wallen",
-      "date": "2024",
-      "youtubeId": "krRYW-kwstk"
+      "title": "River Washed Hair",
+      "artist": "Zach Bryan",
+      "youtubeId": "uvpYTNYzEwI",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 11,
-      "title": "Something in the Orange",
-      "artist": "Zach Bryan",
-      "date": "2023",
-      "youtubeId": "lA8F9sIhGdg"
+      "title": "Don't Mind If I Do (Lyric Video) ft. Ella Langley",
+      "artist": "Riley Green",
+      "youtubeId": "W1CUG_hCXgA",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 12,
-      "title": "Last Night",
-      "artist": "Morgan Wallen",
-      "date": "2023",
-      "youtubeId": "bUjPPBxbQrQ"
+      "title": "Lost (feat. The Kid LAROI) [Official Music Video]",
+      "artist": "Bailey Zimmerman",
+      "youtubeId": "9Z97tEfd2Ws",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 13,
-      "title": "Try That in a Small Town",
-      "artist": "Jason Aldean",
-      "date": "2023",
-      "youtubeId": "b1_RKu-ESCY"
+      "title": "Hate How You Look (Lyric Video)",
+      "artist": "Josh Ross",
+      "youtubeId": "GyykS9A8Y9g",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 14,
-      "title": "Rich Men North of Richmond",
-      "artist": "Oliver Anthony Music",
-      "date": "2023",
-      "youtubeId": "sqSA-SY5Hro"
+      "title": "Music for the Soul (Official Audio)",
+      "artist": "Sam Barber",
+      "youtubeId": "aZ5L5VN-zRs",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 15,
-      "title": "Fast Car",
-      "artist": "Luke Combs",
-      "date": "2023",
-      "youtubeId": "Fr7oYjnt3bM"
+      "title": "All My Exes (Feat. Chase Matthew) (Official Music Video)",
+      "artist": "Lauren Alaina",
+      "youtubeId": "OWanu5I64oc",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 16,
-      "title": "Fancy Like",
-      "artist": "Walker Hayes",
-      "date": "2022",
-      "youtubeId": "G_zuB-ogIBw"
+      "title": "Need To (Audio)",
+      "artist": "Gavin Adcock",
+      "youtubeId": "L3TL2vZ5NEw",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 17,
-      "title": "Buy Dirt",
-      "artist": "Jordan Davis featuring Luke Bryan",
-      "date": "2022",
-      "youtubeId": "AKec3LTILRU"
+      "title": "weren't for the wind (Official Video)",
+      "artist": "Ella Langley",
+      "youtubeId": "U4NPZi2b0aQ",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 18,
-      "title": "You Should Probably Leave",
-      "artist": "Chris Stapleton",
-      "date": "2022",
-      "youtubeId": "M-MGpJIo2bs"
+      "title": "Indigo (feat. Avery Anna) (Lyric Video)",
+      "artist": "Sam Barber",
+      "youtubeId": "0iMPhRWExTo",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 19,
-      "title": "'Til You Can't",
-      "artist": "Cody Johnson",
-      "date": "2022",
-      "youtubeId": "v2LixP7n_hM"
+      "title": "Work On Me (Official Music Video)",
+      "artist": "Dasha",
+      "youtubeId": "f6_NjxQZXbw",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 20,
-      "title": "Don't Think Jesus",
-      "artist": "Morgan Wallen",
-      "date": "2022",
-      "youtubeId": "qN9IK7e9tEQ"
+      "title": "Hell At Night feat. Ella Langley (Official Visualizer)",
+      "artist": "BigXthaPlug",
+      "youtubeId": "VQpmWQU5_8E",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 21,
-      "title": "Wasted on You",
+      "title": "I Got Better (Audio)",
       "artist": "Morgan Wallen",
-      "date": "2022",
-      "youtubeId": "uKmg4UbnDLo"
+      "youtubeId": "zLhDdFGkvzI",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 22,
-      "title": "Thought You Should Know",
-      "artist": "\"Doin' This\"",
-      "date": "2022",
-      "youtubeId": "2YSqaI3IBpo"
+      "title": "Back in the Saddle (Official Music Video)",
+      "artist": "Luke Combs",
+      "youtubeId": "BCQYxoEdmdI",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 23,
-      "title": "You Proof",
-      "artist": "\"Trouble with a Heartbreak\"",
-      "date": "2022",
-      "youtubeId": "TAtWP5Mct5I"
+      "title": "Chevy Silverado (Audio)",
+      "artist": "Bailey Zimmerman",
+      "youtubeId": "85JcFov1hYE",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 24,
-      "title": "The Kind of Love We Make",
-      "artist": "Luke Combs",
-      "date": "2022",
-      "youtubeId": "x8Mc8Pbl06g"
+      "title": "Outside Dog (Official Music Video)",
+      "artist": "Gavin Adcock",
+      "youtubeId": "JRbhEJQWjDk",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 25,
-      "title": "You Proof",
-      "artist": "Morgan Wallen",
-      "date": "2022",
-      "youtubeId": "3CkLMG5NwUg"
+      "title": "Brunette (Official Lyric Video)",
+      "artist": "Tucker Wetmore",
+      "youtubeId": "_Q6N4C5D9p4",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 26,
-      "title": "I Hope",
-      "artist": "Gabby Barrett",
-      "date": "2021",
-      "youtubeId": "qcCH6JpcK5w"
+      "title": "Painted You Pretty (Visualizer)",
+      "artist": "Hudson Westbrook",
+      "youtubeId": "LR43igounYU",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 27,
-      "title": "Better Together",
-      "artist": "Luke Combs",
-      "date": "2021",
-      "youtubeId": "ObDQtfZZ0_k"
+      "title": "Old Way",
+      "artist": "Unknown Artist",
+      "youtubeId": "g9kRjbLIkJM",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 28,
-      "title": "Love Story (Taylor's Version)",
-      "artist": "Taylor Swift",
-      "date": "2021",
-      "youtubeId": "lEMeFbxUZks"
+      "title": "Happen To Me",
+      "artist": "Russell Dickerson",
+      "youtubeId": "8JYJJRxMOZs",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 29,
-      "title": "Good Time",
-      "artist": "Niko Moon",
-      "date": "2021",
-      "youtubeId": "mKnQXaIlrMo"
+      "title": "Bar None (Official Music Video)",
+      "artist": "Jordan Davis",
+      "youtubeId": "3cVD96Kva7Q",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 30,
-      "title": "What's Your Country Song",
-      "artist": "Thomas Rhett",
-      "date": "2021",
-      "youtubeId": "eBzduwzZH-w"
+      "title": "Baggage (Official Lyric Video)",
+      "artist": "Kelsea Ballerini",
+      "youtubeId": "6hZy2TXwPDQ",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 31,
-      "title": "The Good Ones",
-      "artist": "Gabby Barrett",
-      "date": "2021",
-      "youtubeId": "CV7GVjg3TV4"
+      "title": "Bowery (feat. Kings of Leon)",
+      "artist": "Unknown Artist",
+      "youtubeId": "v_nSKcKLPNQ",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 32,
-      "title": "Starting Over",
-      "artist": "Chris Stapleton",
-      "date": "2021",
-      "youtubeId": "A3svABDnmio"
+      "title": "DON'T WANNA GO HOME (Visualizer)",
+      "artist": "Adrien Nunez",
+      "youtubeId": "yP4cmF0Whmg",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 33,
-      "title": "Forever After All",
-      "artist": "Luke Combs",
-      "date": "2021",
-      "youtubeId": "TDpOcp98b5k"
+      "title": "Sweet Lady (Official Lyric Video)",
+      "artist": "Dylan Gossett",
+      "youtubeId": "Rz_pt4V9A9s",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 34,
-      "title": "Am I the Only One",
-      "artist": "Aaron Lewis",
-      "date": "2021",
-      "youtubeId": "zkKb4Zt48x8"
+      "title": "South Of Sanity",
+      "artist": "Unknown Artist",
+      "youtubeId": "VMC151sabpQ",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 35,
-      "title": "All Too Well (Taylor's Version)",
-      "artist": "Taylor Swift",
-      "date": "2021",
-      "youtubeId": "9OQBDdNHmXo"
+      "title": "A Song To Sing (Official Music Video)",
+      "artist": "Miranda Lambert & Chris Stapleton",
+      "youtubeId": "x3K0otRbNY4",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 36,
-      "title": "10,000 Hours",
-      "artist": "Dan + Shay and Justin Bieber",
-      "date": "2020",
-      "youtubeId": "Y2E71oe0aSM"
+      "title": "Medusa (Official Lyric Video)",
+      "artist": "Cameron Whitcomb",
+      "youtubeId": "KNE8o4gK_y0",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 37,
-      "title": "The Bones",
-      "artist": "Maren Morris",
-      "date": "2020",
-      "youtubeId": "gvPMVKUI9go"
+      "title": "Only Bible (Official Lyric Video)",
+      "artist": "Warren Zeiders",
+      "youtubeId": "0Ii5vSVshmY",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     },
     {
       "position": 38,
-      "title": "7 Summers",
+      "title": "Somewhere Over Laredo (Official Music Video)",
+      "artist": "Lainey Wilson",
+      "youtubeId": "PcIpyTFfeuo",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 39,
+      "title": "Sober (Official Music Video)",
+      "artist": "Hudson Westbrook",
+      "youtubeId": "hRyxZfz8gPE",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 40,
+      "title": "Good News",
+      "artist": "Shaboozey",
+      "youtubeId": "WBDpb7SwSgU",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 41,
+      "title": "The Chair (Audio)",
+      "artist": "Braxton Keith",
+      "youtubeId": "l5Xjq0ZZG3s",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 42,
+      "title": "Just In Case (Official Audio)",
       "artist": "Morgan Wallen",
-      "date": "2020",
-      "youtubeId": "ZsEjZKNzt9E"
+      "youtubeId": "cLnl73R9gMc",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 43,
+      "title": "Just Like Johnny (Official Music Video)",
+      "artist": "Redferrin",
+      "youtubeId": "2vjZVlH43DY",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 44,
+      "title": "Bloodline (Lyrics) ft. Jelly Roll",
+      "artist": "Alex Warren",
+      "youtubeId": "I_X4rR8eD9U",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 45,
+      "title": "Man of the Year (Official Audio)",
+      "artist": "Sam Barber",
+      "youtubeId": "dEP6vHXNw3c",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 46,
+      "title": "Ordinary (Live at Lollapalooza)",
+      "artist": "Luke Combs & Alex Warren",
+      "youtubeId": "_LTyJ49uGOM",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 47,
+      "title": "Thought It Was Love (Official Audio)",
+      "artist": "Ty Myers",
+      "youtubeId": "t1VEacIljgs",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 48,
+      "title": "I'm Gonna Love You (with Carrie Underwood) [Official Music Video]",
+      "artist": "Cody Johnson",
+      "youtubeId": "yy9PuYMU29g",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 49,
+      "title": "Always Gonna Be (Official Music Video)",
+      "artist": "Dan + Shay",
+      "youtubeId": "rJq7_L2wnG4",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
+    },
+    {
+      "position": 50,
+      "title": "Rollin' Stone",
+      "artist": "Unknown Artist",
+      "youtubeId": "0MFc2VmobEk",
+      "addedDate": "2025-10-14T04:46:55.400Z",
+      "isNew": true
     }
   ]
 }
