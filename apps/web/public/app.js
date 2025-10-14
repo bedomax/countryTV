@@ -13,6 +13,7 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 function onYouTubeIframeAPIReady() {
     loadPlaylist();
     startLiveEffects();
+    checkForNewSongs();
 }
 
 
@@ -256,11 +257,13 @@ function renderPlaylist() {
             closePlaylist();
         };
 
+        const newBadge = song.isNew ? '<span style="background: linear-gradient(45deg, #ff6b35, #ffd700); padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; margin-left: 8px; box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);">✨ NUEVO</span>' : '';
+
         item.innerHTML = `
             <div class="song-info-item">
                 <div class="song-number">#${song.position}</div>
                 <div class="song-details">
-                    <h4>${song.title}</h4>
+                    <h4>${song.title} ${newBadge}</h4>
                     <p>${song.artist}</p>
                 </div>
             </div>
@@ -560,14 +563,70 @@ function startViewerCounter() {
 function updateViewerCount(count) {
     const viewerCountElement = document.getElementById('viewer-count');
     if (!viewerCountElement) return;
-    
+
     // Format number with commas
     const formattedCount = count.toLocaleString();
     viewerCountElement.textContent = formattedCount;
-    
+
     // Add a subtle pulse effect when number changes
     viewerCountElement.style.transform = 'scale(1.1)';
     setTimeout(() => {
         viewerCountElement.style.transform = 'scale(1)';
     }, 200);
 }
+
+// Check for new songs and show notification
+async function checkForNewSongs() {
+    try {
+        console.log('🔍 Checking for new songs...');
+
+        const response = await fetch('/api/new-songs');
+        if (!response.ok) {
+            console.log('⚠️ Could not fetch new songs info');
+            return;
+        }
+
+        const data = await response.json();
+        console.log('📊 New songs data:', data);
+
+        if (data.count > 0) {
+            console.log(`🎉 Found ${data.count} new songs!`);
+            showNewSongsNotification(data.count, data.songs);
+        } else {
+            console.log('✅ No new songs to display');
+        }
+
+    } catch (error) {
+        console.error('❌ Error checking for new songs:', error);
+    }
+}
+
+// Show new songs notification with animation
+function showNewSongsNotification(count, songs) {
+    const notification = document.getElementById('new-songs-notification');
+    const countElement = document.getElementById('new-songs-count');
+
+    if (!notification || !countElement) return;
+
+    // Update count text
+    const songWord = count === 1 ? 'new song added' : 'new songs added';
+    countElement.textContent = `${count} ${songWord}`;
+
+    // Show notification with animation
+    setTimeout(() => {
+        notification.classList.add('show');
+        console.log('🎉 Showing new songs notification');
+    }, 1000);
+
+    // Hide notification after 8 seconds
+    setTimeout(() => {
+        notification.classList.remove('show');
+        console.log('👋 Hiding new songs notification');
+    }, 9000);
+
+    // Log new songs to console
+    console.log('🎵 New songs:', songs.map(s => `${s.title} - ${s.artist}`).join(', '));
+}
+
+// Periodically check for new songs (every 5 minutes)
+setInterval(checkForNewSongs, 5 * 60 * 1000);
