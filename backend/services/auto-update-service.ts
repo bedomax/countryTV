@@ -4,20 +4,26 @@ import { promisify } from 'util';
 
 const execAsync = promisify(exec);
 
+type PlaylistSource = 'youtube' | 'spotify' | 'both';
+
 /**
  * Service to automatically update playlist every 24 hours
  */
 class AutoUpdateService {
   private isRunning: boolean = false;
   private lastUpdate: Date | null = null;
+  private source: PlaylistSource = 'both'; // Default to update from both sources
 
   /**
    * Start the auto-update service
    * Runs every day at 3 AM
+   * @param source - Which playlist source to update from ('youtube', 'spotify', or 'both')
    */
-  start() {
+  start(source: PlaylistSource = 'both') {
+    this.source = source;
     console.log('🚀 Starting Auto-Update Service...');
     console.log('⏰ Schedule: Every 24 hours at 3:00 AM');
+    console.log(`📋 Sources: ${source}`);
 
     // Schedule task to run every day at 3:00 AM
     cron.schedule('0 3 * * *', async () => {
@@ -61,7 +67,7 @@ class AutoUpdateService {
   }
 
   /**
-   * Update the playlist by running the scraper
+   * Update the playlist by running the scraper(s)
    */
   private async updatePlaylist() {
     if (this.isRunning) {
@@ -75,17 +81,32 @@ class AutoUpdateService {
       console.log('\n' + '='.repeat(60));
       console.log('🔄 Starting playlist update...');
       console.log('⏰ Time:', new Date().toLocaleString());
+      console.log(`📋 Source(s): ${this.source}`);
       console.log('='.repeat(60) + '\n');
 
-      // Run the YouTube playlist scraper
-      const { stdout, stderr } = await execAsync('npm run scrape:youtube');
+      // Run scraper(s) based on source configuration
+      if (this.source === 'youtube' || this.source === 'both') {
+        console.log('▶️  Running YouTube scraper...\n');
+        const { stdout: youtubeOut, stderr: youtubeErr } = await execAsync('npm run scrape:youtube');
 
-      if (stdout) {
-        console.log(stdout);
+        if (youtubeOut) {
+          console.log(youtubeOut);
+        }
+        if (youtubeErr) {
+          console.error('YouTube scraper stderr:', youtubeErr);
+        }
       }
 
-      if (stderr) {
-        console.error('Scraper stderr:', stderr);
+      if (this.source === 'spotify' || this.source === 'both') {
+        console.log('\n🎵 Running Spotify scraper...\n');
+        const { stdout: spotifyOut, stderr: spotifyErr } = await execAsync('npm run scrape:spotify');
+
+        if (spotifyOut) {
+          console.log(spotifyOut);
+        }
+        if (spotifyErr) {
+          console.error('Spotify scraper stderr:', spotifyErr);
+        }
       }
 
       this.lastUpdate = new Date();
