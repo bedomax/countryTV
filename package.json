@@ -10,6 +10,7 @@
     "scrape:stagehand": "tsx backend/scrapers/stagehand-scraper.ts",
     "scrape:youtube": "tsx backend/scrapers/youtube-playlist-scraper.ts",
     "scrape:spotify": "tsx backend/scrapers/spotify-playlist-scraper.ts",
+    "scrape:manual": "tsx backend/scrapers/add-manual-songs.ts",
     "serve": "tsx backend/server/server.ts",
     "dev": "npm run scrape && npm run serve",
     "web": "npm run serve",
