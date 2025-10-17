@@ -252,10 +252,6 @@ function renderPlaylist() {
     playlist.forEach((song, index) => {
         const item = document.createElement('div');
         item.className = `playlist-item ${index === currentIndex ? 'active' : ''}`;
-        item.onclick = () => {
-            playSong(index);
-            closePlaylist();
-        };
 
         const newBadge = song.isNew ? '<span style="background: linear-gradient(45deg, #ff6b35, #ffd700); padding: 4px 10px; border-radius: 12px; font-size: 0.75rem; font-weight: 700; margin-left: 8px; box-shadow: 0 2px 8px rgba(255, 107, 53, 0.4);">✨ NUEVO</span>' : '';
 
@@ -266,8 +262,22 @@ function renderPlaylist() {
                     <h4>${song.title} ${newBadge}</h4>
                     <p>${song.artist}</p>
                 </div>
+                <button class="playlist-spotify-btn" onclick="event.stopPropagation(); openSongInSpotify('${song.artist.replace(/'/g, "\\'")}', '${song.title.replace(/'/g, "\\'")}');" title="Find on Spotify">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.359-.66.48-1.021.24-2.82-1.74-6.36-2.101-10.561-1.141-.418.122-.779-.179-.899-.539-.12-.421.18-.78.54-.9 4.56-1.021 8.52-.6 11.64 1.32.42.18.479.659.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.021.6-1.141C9.6 9.9 15 10.561 18.72 12.84c.361.181.54.78.241 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.301c-.6.179-1.2-.181-1.38-.721-.18-.601.18-1.2.72-1.381 4.26-1.26 11.28-1.02 15.721 1.621.539.3.719 1.02.419 1.56-.299.421-1.02.599-1.559.3z"/>
+                    </svg>
+                    Spotify
+                </button>
             </div>
         `;
+
+        // Add click handler for the main item (excluding the Spotify button)
+        item.addEventListener('click', (e) => {
+            if (!e.target.closest('.playlist-spotify-btn')) {
+                playSong(index);
+                closePlaylist();
+            }
+        });
 
         playlistContainer.appendChild(item);
     });
@@ -318,6 +328,9 @@ function updateNowPlaying(index) {
 
 // Setup UI controls
 function setupUI() {
+    // Spotify button
+    document.getElementById('spotify-btn').addEventListener('click', openCurrentSongInSpotify);
+
     // Previous button
     document.getElementById('prev-btn').addEventListener('click', playPrev);
 
@@ -630,3 +643,42 @@ function showNewSongsNotification(count, songs) {
 
 // Periodically check for new songs (every 5 minutes)
 setInterval(checkForNewSongs, 5 * 60 * 1000);
+
+// Open current song in Spotify
+function openCurrentSongInSpotify() {
+    if (playlist.length === 0 || currentIndex < 0) return;
+
+    const currentSong = playlist[currentIndex];
+    openSongInSpotify(currentSong.artist, currentSong.title);
+}
+
+// Open a specific song in Spotify
+function openSongInSpotify(artist, title) {
+    // Clean up the title and artist for better search results
+    // Remove common video tags like (Official Video), (Lyric Video), etc.
+    const cleanTitle = title
+        .replace(/\(Official.*?\)/gi, '')
+        .replace(/\(Lyric.*?\)/gi, '')
+        .replace(/\(Audio\)/gi, '')
+        .replace(/\(Visualizer\)/gi, '')
+        .replace(/\(Music Video\)/gi, '')
+        .replace(/\(.*?Video\)/gi, '')
+        .replace(/\[.*?\]/g, '')
+        .trim();
+
+    const cleanArtist = artist
+        .replace(/\(feat\..*?\)/gi, '')
+        .replace(/feat\..*$/gi, '')
+        .replace(/ft\..*$/gi, '')
+        .trim();
+
+    // Create Spotify search URL
+    const searchQuery = encodeURIComponent(`${cleanArtist} ${cleanTitle}`);
+    const spotifyUrl = `https://open.spotify.com/search/${searchQuery}`;
+
+    console.log(`🎵 Opening Spotify search for: ${cleanArtist} - ${cleanTitle}`);
+    console.log(`🔗 URL: ${spotifyUrl}`);
+
+    // Open in new tab
+    window.open(spotifyUrl, '_blank');
+}
