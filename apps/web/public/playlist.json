@@ -1,6 +1,6 @@
 {
-  "lastUpdated": "2025-10-17T04:17:32.521Z",
-  "source": "Spotify Playlist + YouTube - Country Music Collection",
+  "lastUpdated": "2025-10-17T04:33:28.688Z",
+  "source": "Spotify Playlist + YouTube - Country Music Collection + Manual additions",
   "songs": [
     {
       "position": 1,
@@ -592,6 +592,494 @@
       "artist": "Brad Paisley",
       "youtubeId": "ZDRfrVMrV6Q",
       "addedDate": "2025-10-17T04:17:32.521Z",
+      "isNew": true
+    },
+    {
+      "position": 75,
+      "title": "Dancin’ In The Country",
+      "artist": "Tyler Hubbard",
+      "youtubeId": "ma3L7xWB_1U",
+      "addedDate": "2025-10-17T04:17:32.521Z",
+      "isNew": true
+    },
+    {
+      "position": 76,
+      "title": "5 Foot 9",
+      "artist": "Tyler Hubbard",
+      "youtubeId": "RK9rT1ck90E",
+      "addedDate": "2025-10-17T04:17:32.521Z",
+      "isNew": true
+    },
+    {
+      "position": 77,
+      "title": "Steal My Thunder",
+      "artist": "Conner Smith (feat. Tucker Wetmore)",
+      "youtubeId": "vfKUxlymI4U",
+      "addedDate": "2025-10-17T04:17:32.521Z",
+      "isNew": true
+    },
+    {
+      "position": 78,
+      "title": "Break First (Official Visualizer)",
+      "artist": "Tucker Wetmore",
+      "youtubeId": "JfXo8VYTfT4",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 79,
+      "title": "Friends Like That (feat. Jason Aldean) [Official Music Video]",
+      "artist": "John Morgan",
+      "youtubeId": "xnLwAiY7_PE",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 80,
+      "title": "Park (Official Music Video)",
+      "artist": "Tyler Hubbard",
+      "youtubeId": "fRw0n87shW4",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 81,
+      "title": "Whiskey Glasses (Official Video)",
+      "artist": "Morgan Wallen",
+      "youtubeId": "FjBp30kjzTc",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 82,
+      "title": "Up Down ft. Florida Georgia Line (Official Video)",
+      "artist": "Morgan Wallen",
+      "youtubeId": "77qc4ZtufzM",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 83,
+      "title": "GOOD TIME (Official Video)",
+      "artist": "Niko Moon",
+      "youtubeId": "mKnQXaIlrMo",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 84,
+      "title": "Whiskey Glasses (Official Video)",
+      "artist": "Morgan Wallen",
+      "youtubeId": "FjBp30kjzTc",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 85,
+      "title": "Drink In My Hand (Official Music Video)",
+      "artist": "Eric Church",
+      "youtubeId": "usGv0gB2zEU",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 86,
+      "title": "Beer Don't (Official Lyric Video)",
+      "artist": "Morgan Wallen",
+      "youtubeId": "kuJEUXR0v0I",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 87,
+      "title": "This Bar (Lyric Video)",
+      "artist": "Morgan Wallen",
+      "youtubeId": "RcLlcC4uOgA",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 88,
+      "title": "Up Down ft. Florida Georgia Line (Official Video)",
+      "artist": "Morgan Wallen",
+      "youtubeId": "77qc4ZtufzM",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 89,
+      "title": "Smoke A Little Smoke (Official Music Video)",
+      "artist": "Eric Church",
+      "youtubeId": "XxWjtWONuGc",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 90,
+      "title": "Drinkin' Problem",
+      "artist": "Midland",
+      "youtubeId": "g7f6HiQ2LuU",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 91,
+      "title": "It'z Just What We Do",
+      "artist": "Florida Georgia Line",
+      "youtubeId": "puiJKDWFars",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 92,
+      "title": "You Proof (Lyric Video)",
+      "artist": "Morgan Wallen",
+      "youtubeId": "oSBh6a0QJg8",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 93,
+      "title": "Parking Lot Party",
+      "artist": "Unknown Artist",
+      "youtubeId": "mi75ylF5aI8",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 94,
+      "title": "Chasin' You (Dream Video)",
+      "artist": "Morgan Wallen",
+      "youtubeId": "iBduQb1S-4s",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 95,
+      "title": "Good Time (Official HD Video)",
+      "artist": "Alan Jackson",
+      "youtubeId": "PSROm-vgVRk",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 96,
+      "title": "Cold One (Official Music Video)",
+      "artist": "Eric Church",
+      "youtubeId": "BKvE-WoooLE",
+      "addedDate": "2025-10-17T04:33:28.687Z",
+      "isNew": true
+    },
+    {
+      "position": 97,
+      "title": "Boot Scootin' Boogie (Official Video)",
+      "artist": "Brooks & Dunn",
+      "youtubeId": "d05tQrhNMkA",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 98,
+      "title": "This Is How We Roll ft. Luke Bryan",
+      "artist": "Florida Georgia Line",
+      "youtubeId": "CbxuXq_981s",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 99,
+      "title": "All Night (Official Music Video)",
+      "artist": "Brothers Osborne",
+      "youtubeId": "MvaXV3Q6pN0",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 100,
+      "title": "Down To The Honkytonk (Official Music Video)",
+      "artist": "Jake Owen",
+      "youtubeId": "tBdahVPD_K0",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 101,
+      "title": "Cold As You (Official Video)",
+      "artist": "Luke Combs",
+      "youtubeId": "Y4BfaojXcWE",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 102,
+      "title": "The Way I Talk (Official Video)",
+      "artist": "Morgan Wallen",
+      "youtubeId": "pbKM-6k2cHg",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 103,
+      "title": "Tequila Makes Her Clothes Fall Off (Closed Captioned)",
+      "artist": "Joe Nichols",
+      "youtubeId": "Nj2700em-JQ",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 104,
+      "title": "When It Rains It Pours (Official Video)",
+      "artist": "Luke Combs",
+      "youtubeId": "uXyxFMbqKYA",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 105,
+      "title": "Creepin' (Official Music Video)",
+      "artist": "Eric Church",
+      "youtubeId": "8OZhw-aQTP8",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 106,
+      "title": "Backroad Song (Official Music Video)",
+      "artist": "Granger Smith",
+      "youtubeId": "EfZ-dVDySzc",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 107,
+      "title": "Dirt",
+      "artist": "Florida Georgia Line",
+      "youtubeId": "42uphHWxmFU",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 108,
+      "title": "Whiskey On You (Official Music Video)",
+      "artist": "Nate Smith",
+      "youtubeId": "_6Np5NhF1QE",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 109,
+      "title": "Drinking Class (Official Music Video)",
+      "artist": "Lee Brice",
+      "youtubeId": "ZV1oQiRdoPc",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 110,
+      "title": "SOLD OUT (Wall to Wall Rock Video)",
+      "artist": "HARDY",
+      "youtubeId": "r57GhcHEgGo",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 111,
+      "title": "JACK (Official Music Video)",
+      "artist": "HARDY",
+      "youtubeId": "uwtjL9UI4uQ",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 112,
+      "title": "REDNECKER (Official Video)",
+      "artist": "HARDY",
+      "youtubeId": "Sn2RBKPMpU0",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 113,
+      "title": "UNAPOLOGETICALLY COUNTRY AS HELL (Audio Only)",
+      "artist": "HARDY",
+      "youtubeId": "TKAfmeG08Ww",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 114,
+      "title": "Turn You Down ft. Morgan Wallen, Zakk Wylde (Audio) ft. Morgan Wallen, Zakk Wylde",
+      "artist": "HARDY",
+      "youtubeId": "FViIlWUS0ZI",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 115,
+      "title": "Flatliner (Official Music Video)",
+      "artist": "Cole Swindell ft. Dierks Bentley",
+      "youtubeId": "zPYitm8kIcg",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 116,
+      "title": "Kick It In The Sticks (Official Music Video)",
+      "artist": "Brantley Gilbert",
+      "youtubeId": "ve8sNTqrzCw",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 117,
+      "title": "Ain't Worth The Whiskey (Official Music Video)",
+      "artist": "Cole Swindell",
+      "youtubeId": "i8rMpN4o-b0",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 118,
+      "title": "Springsteen (Official Music Video)",
+      "artist": "Eric Church",
+      "youtubeId": "l2gGXlW6wSY",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 119,
+      "title": "Chillin' It (Official Video)",
+      "artist": "Cole Swindell",
+      "youtubeId": "Mh-eN--JK8Q",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 120,
+      "title": "Toes (Official Video)",
+      "artist": "Zac Brown Band",
+      "youtubeId": "kD-unyd10tM",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 121,
+      "title": "Chicken Fried (Official Music Video) | The Foundation",
+      "artist": "Zac Brown Band",
+      "youtubeId": "e4ujS1er1r0",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 122,
+      "title": "One Margarita (Official Music Video)",
+      "artist": "Luke Bryan",
+      "youtubeId": "YEq-cvq_cK4",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 123,
+      "title": "The Booze Cruise (Original Music Video 2013)",
+      "artist": "Blackjack Billy",
+      "youtubeId": "74UWc5EJJQI",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 124,
+      "title": "Truck Yeah (Official Music Video)",
+      "artist": "Tim McGraw",
+      "youtubeId": "rf7GfUORHtw",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 125,
+      "title": "TRUCK BED (Official Music Video)",
+      "artist": "HARDY",
+      "youtubeId": "ZUKTn7UWO54",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 126,
+      "title": "Barefoot Blue Jean Night (Official Video)",
+      "artist": "Jake Owen",
+      "youtubeId": "aRh-vBOS-dU",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 127,
+      "title": "Caught Up In The Country (Official Music Video)",
+      "artist": "Rodney Atkins",
+      "youtubeId": "1kpO7woOopM",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 128,
+      "title": "More Beer (Official Music Video)",
+      "artist": "Lee Brice",
+      "youtubeId": "cBeJ_PP7EYs",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 129,
+      "title": "Down To The Bar (feat. HARDY) [Official Music Video]",
+      "artist": "Cole Swindell",
+      "youtubeId": "a5Y0K0bUgNc",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 130,
+      "title": "Small Town Throwdown (ft. Justin Moore and Thomas Rhett) (Official Music Video)",
+      "artist": "Unknown Artist",
+      "youtubeId": "NbE3TUegz3s",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 131,
+      "title": "He Went To Jared (Official Music Video)",
+      "artist": "HiXTAPE",
+      "youtubeId": "km_k1N7eiWo",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 132,
+      "title": "WHERE YA AT (Audio Only)",
+      "artist": "HARDY",
+      "youtubeId": "pJjdO_k_N8M",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 133,
+      "title": "Hell Right (ft. Trace Adkins) [Official Music Video]",
+      "artist": "Blake Shelton",
+      "youtubeId": "3pQc25SCaNs",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 134,
+      "title": "Hicktown (Video)",
+      "artist": "Jason Aldean",
+      "youtubeId": "VZC_wkIW4U4",
+      "addedDate": "2025-10-17T04:33:28.688Z",
+      "isNew": true
+    },
+    {
+      "position": 135,
+      "title": "No I in Beer (Official Video)",
+      "artist": "Brad Paisley",
+      "youtubeId": "b323QGBSW3U",
+      "addedDate": "2025-10-17T04:33:28.688Z",
       "isNew": true
     }
   ]
