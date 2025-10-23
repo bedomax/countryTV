@@ -1,0 +1,111 @@
+name: Claude AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+      - develop
+
+jobs:
+  claude-review:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get PR diff
+        id: pr-diff
+        run: |
+          # Get the diff for this PR
+          git fetch origin ${{ github.event.pull_request.base.ref }}
+          DIFF=$(git diff origin/${{ github.event.pull_request.base.ref }}...HEAD)
+
+          # Save diff to file (handle multiline)
+          echo "$DIFF" > pr-diff.txt
+
+          # Get changed files
+          CHANGED_FILES=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }}...HEAD)
+          echo "$CHANGED_FILES" > changed-files.txt
+
+          echo "diff-file=pr-diff.txt" >> $GITHUB_OUTPUT
+          echo "files-file=changed-files.txt" >> $GITHUB_OUTPUT
+
+      - name: Get PR metadata
+        id: pr-metadata
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const pr = context.payload.pull_request;
+            return {
+              title: pr.title,
+              author: pr.user.login,
+              number: pr.number,
+              additions: pr.additions,
+              deletions: pr.deletions,
+              changed_files: pr.changed_files,
+              body: pr.body || 'No description provided'
+            };
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Run Claude Code Review
+        id: claude-review
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          PR_TITLE: ${{ fromJSON(steps.pr-metadata.outputs.result).title }}
+          PR_AUTHOR: ${{ fromJSON(steps.pr-metadata.outputs.result).author }}
+          PR_NUMBER: ${{ fromJSON(steps.pr-metadata.outputs.result).number }}
+          PR_ADDITIONS: ${{ fromJSON(steps.pr-metadata.outputs.result).additions }}
+          PR_DELETIONS: ${{ fromJSON(steps.pr-metadata.outputs.result).deletions }}
+          PR_BODY: ${{ fromJSON(steps.pr-metadata.outputs.result).body }}
+        run: |
+          # Install dependencies
+          npm install --no-save @anthropic-ai/sdk
+
+          # Run Claude review script
+          node .github/scripts/claude-review.js
+
+      - name: Post review comment
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const fs = require('fs');
+
+            // Read the review from file
+            let reviewBody = '';
+            try {
+              reviewBody = fs.readFileSync('claude-review.md', 'utf8');
+            } catch (error) {
+              reviewBody = '⚠️ Claude code review failed to generate. Check workflow logs for details.';
+            }
+
+            // Post the review as a comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.payload.pull_request.number,
+              body: reviewBody
+            });
+
+      - name: Upload review artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: claude-review
+          path: |
+            claude-review.md
+            pr-diff.txt
+            changed-files.txt
+          retention-days: 30
