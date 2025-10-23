@@ -7,15 +7,17 @@
  * on GitHub Pull Requests.
  */
 
-const Anthropic = require('@anthropic-ai/sdk');
-const fs = require('fs');
+import Anthropic from '@anthropic-ai/sdk';
+import fs from 'fs';
 
 // Configuration
 const MAX_DIFF_LENGTH = 100000; // Claude's context limit consideration
-const CLAUDE_MODEL = 'claude-sonnet-4-5-20250929'; // Latest Claude model
+const CLAUDE_MODEL = 'claude-sonnet-4-20250514'; // Use stable Claude 3.5 Sonnet model
 
 async function main() {
   try {
+    console.log('🔍 Starting Claude Code Review...\n');
+
     // Get environment variables
     const apiKey = process.env.ANTHROPIC_API_KEY;
     const prTitle = process.env.PR_TITLE;
@@ -25,13 +27,41 @@ async function main() {
     const prDeletions = process.env.PR_DELETIONS;
     const prBody = process.env.PR_BODY;
 
+    console.log('📋 Environment Check:');
+    console.log(`  - API Key: ${apiKey ? '✅ Present (length: ' + apiKey.length + ')' : '❌ Missing'}`);
+    console.log(`  - PR Title: ${prTitle || '❌ Missing'}`);
+    console.log(`  - PR Author: ${prAuthor || '❌ Missing'}`);
+    console.log(`  - PR Number: ${prNumber || '❌ Missing'}`);
+    console.log();
+
     if (!apiKey) {
-      throw new Error('ANTHROPIC_API_KEY environment variable is not set');
+      throw new Error('ANTHROPIC_API_KEY secret is not configured in GitHub. Please add it in Settings → Secrets → Actions');
+    }
+
+    if (!prTitle || !prAuthor || !prNumber) {
+      throw new Error('PR metadata is incomplete. This might be a GitHub Actions configuration issue.');
+    }
+
+    // Check if files exist
+    if (!fs.existsSync('pr-diff.txt')) {
+      throw new Error('pr-diff.txt not found. The PR diff step may have failed.');
+    }
+    if (!fs.existsSync('changed-files.txt')) {
+      throw new Error('changed-files.txt not found. The PR diff step may have failed.');
     }
 
     // Read the diff and changed files
     const diff = fs.readFileSync('pr-diff.txt', 'utf8');
-    const changedFiles = fs.readFileSync('changed-files.txt', 'utf8').trim().split('\n');
+    const changedFilesContent = fs.readFileSync('changed-files.txt', 'utf8').trim();
+    const changedFiles = changedFilesContent ? changedFilesContent.split('\n').filter(f => f) : [];
+
+    if (!diff || diff.length === 0) {
+      // No changes - create a simple review
+      const noChangesReview = createNoChangesReview(prNumber, prAuthor);
+      fs.writeFileSync('claude-review.md', noChangesReview);
+      console.log('ℹ️  No changes detected in PR');
+      return;
+    }
 
     console.log(`📊 PR Info: #${prNumber} - ${prTitle}`);
     console.log(`👤 Author: ${prAuthor}`);
@@ -84,21 +114,87 @@ async function main() {
 
   } catch (error) {
     console.error('❌ Error during code review:', error.message);
+    console.error('Stack trace:', error.stack);
 
-    // Write error to review file
+    // Write detailed error to review file
     const errorOutput = `# ⚠️ Claude Code Review Failed
 
 **Error**: ${error.message}
 
-The automated code review could not be completed. Please review the workflow logs for more details.
+The automated code review could not be completed.
+
+## Possible Causes
+
+1. **Missing API Key**: Make sure \`ANTHROPIC_API_KEY\` is configured in GitHub Settings → Secrets → Actions
+2. **API Quota Exceeded**: Check your Anthropic account usage at https://console.anthropic.com/
+3. **Network Issues**: GitHub Actions may have connectivity problems
+4. **Model Unavailable**: The Claude model may be temporarily unavailable
+
+## How to Fix
+
+1. **Check API Key**:
+   - Go to GitHub repo Settings → Secrets and variables → Actions
+   - Verify \`ANTHROPIC_API_KEY\` exists and is valid
+   - Get a new key from https://console.anthropic.com/
+
+2. **Check Workflow Logs**:
+   - Go to Actions tab → Failed workflow → "Run Claude Code Review" step
+   - Look for specific error messages
+
+3. **Manual Review**:
+   - Use \`/review-pr\` command in Claude Code IDE
+   - Or review the PR manually
+
+## Support
+
+- [GitHub Actions Logs](../../actions)
+- [Anthropic Status](https://status.anthropic.com/)
+- [Setup Guide](../.github/CLAUDE_REVIEW_SETUP.md)
 
 ---
 *This is an automated review powered by Claude AI*
+
+<details>
+<summary>Technical Details</summary>
+
+\`\`\`
+${error.stack || error.message}
+\`\`\`
+
+</details>
 `;
     fs.writeFileSync('claude-review.md', errorOutput);
 
     process.exit(1);
   }
+}
+
+function createNoChangesReview(prNumber, author) {
+  return `# 🤖 Claude AI Code Review
+
+**PR**: #${prNumber}
+**Author**: @${author}
+**Reviewed by**: Claude Sonnet 4.5
+**Review Date**: ${new Date().toISOString().split('T')[0]}
+
+---
+
+## ℹ️ No Changes Detected
+
+This PR appears to have no code changes to review. This might be:
+- A merge commit with no new changes
+- A documentation-only PR with no diff
+- A PR that has already been merged
+
+If you expected changes to be reviewed, please check:
+1. The PR has commits with actual code changes
+2. The base branch is correct
+3. The PR is not already merged
+
+---
+
+*🤖 Automated review powered by Claude AI*
+`;
 }
 
 function createReviewPrompt({ title, author, number, body, additions, deletions, changedFiles, diff }) {

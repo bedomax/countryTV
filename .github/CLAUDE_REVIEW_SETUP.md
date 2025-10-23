@@ -224,6 +224,38 @@ Based on Claude Sonnet 4.5 pricing:
 
 ## 🐛 Troubleshooting
 
+### ⚠️ Common Issues & Fixes
+
+#### 1. ES Module Error (FIXED)
+```
+ReferenceError: require is not defined in ES module scope
+```
+
+**Status**: ✅ Fixed in latest version
+- Script now uses `import` instead of `require`
+- Node.js upgraded to version 20
+- No action needed if using latest files
+
+#### 2. Node Version Error (FIXED)
+```
+EBADENGINE Unsupported engine - required: { node: '>=20.0.0' }
+```
+
+**Status**: ✅ Fixed in workflow
+- Workflow now uses Node.js 20
+- Check `.github/workflows/claude-code-review.yml` line 59
+
+#### 3. Missing API Key
+```
+Error: ANTHROPIC_API_KEY secret is not configured
+```
+
+**Fix**:
+1. Get API key from https://console.anthropic.com/
+2. Add to GitHub: Settings → Secrets → Actions → New secret
+3. Name: `ANTHROPIC_API_KEY`
+4. Value: Your key (starts with `sk-ant-`)
+
 ### Review Not Appearing
 
 1. **Check workflow status**:
@@ -249,14 +281,19 @@ Based on Claude Sonnet 4.5 pricing:
    ```
 
 2. **Common errors**:
-   - `ANTHROPIC_API_KEY not set` → Add secret
+   - `ANTHROPIC_API_KEY not set` → Add secret (see above)
+   - `require is not defined` → Update to latest script (uses ES modules)
    - `Authentication error` → Invalid API key
    - `Rate limit exceeded` → Wait or upgrade plan
    - `Diff too large` → PR is too big (>100K chars)
+   - `Node version error` → Update workflow to Node 20
 
 3. **Re-run workflow**:
    - Go to failed workflow
    - Click "Re-run failed jobs"
+
+4. **Detailed troubleshooting**:
+   - See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for complete guide
 
 ### Review Quality Issues
 
