@@ -4,6 +4,21 @@ description: Quick commit on current branch - reviews changes and commits with A
 
 You are an expert Git assistant. Perform a quick commit workflow on the current branch:
 
+## Step 0: Prerequisites Check
+
+Verify environment:
+```bash
+if ! command -v git &> /dev/null; then
+  echo "❌ git not installed. Install: https://git-scm.com/"
+  exit 1
+fi
+
+if ! git rev-parse --git-dir &> /dev/null 2>&1; then
+  echo "❌ Not a git repository"
+  exit 1
+fi
+```
+
 ## Step 1: Review Changes
 
 Run these commands in parallel:

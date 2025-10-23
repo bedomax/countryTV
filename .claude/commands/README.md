@@ -4,14 +4,25 @@ Custom slash commands for Git workflow automation and code review in Claude Code
 
 ## ⚡ Quick Reference
 
-| Command | What It Does | When to Use |
-|---------|--------------|-------------|
-| `/commit` | Create branch + commit | Starting new feature/hotfix |
-| `/quick-commit` | Fast commit on current branch | Iterative development |
-| `/push` | Safe push with validation | Backup work to remote |
-| `/push-pr` | Push + review + create PR | Feature complete, ready for review |
-| `/review-changes` | Quick review of changes | Before committing |
-| `/review-pr` | Full PR code review | Review PRs (yours or teammates) |
+| Command | What It Does | When to Use | Version |
+|---------|--------------|-------------|---------|
+| `/commit` | Create branch + commit | Starting new feature/hotfix | v2.0 ✨ |
+| `/quick-commit` | Fast commit on current branch | Iterative development | v2.0 ✨ |
+| `/push` | Safe push with validation | Backup work to remote | v2.0 ✨ |
+| `/push-pr` | Push + review + create PR | Feature complete, ready for review | v2.0 ✨ |
+| `/review-changes` | Quick review of changes | Before committing | v1.0 |
+| `/review-pr` | Full PR code review | Review PRs (yours or teammates) | v1.0 |
+
+### 🆕 What's New in v2.0
+
+**Major Improvements:**
+- ✅ Branch name sanitization (handles spaces, special chars)
+- ✅ Git verification on all commands
+- ✅ Smart defaults and fewer questions
+- ✅ Better error handling and debugging
+- ✅ Faster workflow with streamlined inputs
+
+**See**: [COMMAND_IMPROVEMENTS.md](COMMAND_IMPROVEMENTS.md) for details
 
 ### 🎯 Common Workflows
 
@@ -19,6 +30,20 @@ Custom slash commands for Git workflow automation and code review in Claude Code
 **Quick Fix**: `/commit` → fix → `/quick-commit` → `/push-pr`
 **Backup Work**: `/quick-commit` → `/push`
 **Review PR**: `/review-pr` → give feedback
+
+### ⚠️ Important Notes
+
+**Before Using Commands:**
+- ✅ Git must be installed (`git --version`)
+- ✅ Must be in a git repository (`git status` works)
+- ✅ For `/push-pr`: GitHub CLI required (`gh --version`)
+- ✅ Branch names with spaces will be sanitized automatically
+
+**Command Safety:**
+- 🔒 Commands never push without confirmation
+- 🔒 Always validate before executing
+- 🔒 Won't commit files with secrets (.env, credentials)
+- 🔒 Warn about protected branches (main, master)
 
 ---
 
@@ -450,7 +475,7 @@ Both commands include safety checks:
 
 ---
 
-## 💡 Tips
+## 💡 Tips & Best Practices
 
 ### Git Workflow
 1. **Use `/commit` for new work** - Creates branches and sets you up
@@ -472,6 +497,13 @@ Both commands include safety checks:
 13. **Write good descriptions** - `/push-pr` helps with this
 14. **Fix issues before PR** - Use `/review-changes` first
 15. **Use conventional commits** - All commands follow this format
+
+### v2.0 Improvements
+16. **Branch names auto-sanitized** - "Spotify Integration" → "spotify-integration"
+17. **Press ENTER for defaults** - Faster workflow in `/push-pr`
+18. **Smart base branch detection** - hotfix/* → main, feature/* → develop
+19. **Optional code review** - Choose full/quick/skip in `/push-pr`
+20. **Fewer questions** - Commands are streamlined for speed
 
 ---
 

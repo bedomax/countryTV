@@ -4,12 +4,43 @@ description: Safe push to remote - validates commits, checks for issues, and pus
 
 You are an expert Git workflow assistant. Perform a safe push operation with validation checks.
 
+## Step 0: Prerequisites Check
+
+Verify environment:
+```bash
+if ! command -v git &> /dev/null; then
+  echo "❌ git not installed. Install: https://git-scm.com/"
+  exit 1
+fi
+
+if ! git rev-parse --git-dir &> /dev/null 2>&1; then
+  echo "❌ Not a git repository"
+  exit 1
+fi
+```
+
 ## Step 1: Get Current Branch Info
 
+Get the current branch name:
+```bash
+CURRENT_BRANCH=$(git branch --show-current)
+```
+
 Run these commands in parallel:
-- `git branch --show-current` - Current branch name
 - `git status` - Working tree status
-- `git log origin/$(git branch --show-current)..HEAD --oneline 2>/dev/null || git log HEAD --oneline -5` - Commits to push
+
+Check commits to push (handle case where remote branch doesn't exist):
+```bash
+# Check if remote branch exists
+if git ls-remote --heads origin "$CURRENT_BRANCH" | grep -q "$CURRENT_BRANCH"; then
+  # Remote exists - show commits to push
+  git log origin/$CURRENT_BRANCH..HEAD --oneline
+else
+  # Remote doesn't exist - show recent commits
+  echo "ℹ️ This branch doesn't exist on remote yet (will be created)"
+  git log HEAD --oneline -5
+fi
+```
 
 ## Step 2: Pre-Push Validations
 
@@ -58,11 +89,22 @@ Show the commits that will be pushed:
 Total: [N] commit(s)
 ```
 
-Check for suspicious patterns:
-- **🚨 WIP commits**: Commits with "WIP", "temp", "test", "debug" in message
+Check for suspicious patterns (use regex for accuracy):
+- **🚨 WIP commits**: Commits STARTING with "WIP:", "WIP ", "temp:", "debug:", "tmp:"
+- **🚨 TODO commits**: Commits containing "TODO" or "FIXME" in first line
 - **🚨 Large commits**: Commits with >20 files changed
 - **🚨 Merge commits**: Unexpected merge commits
-- **🚨 Fixup commits**: Commits that should be squashed
+
+Use regex to detect:
+```bash
+# Check if commit message STARTS with suspicious patterns
+if git log --format=%s -1 "$commit" | grep -qE "^(WIP|temp|debug|tmp|TODO|FIXME)[:\ ]"; then
+  echo "⚠️ Suspicious commit: $commit"
+fi
+```
+
+**Note**: Commits like "add test coverage" are OK (doesn't start with "test:")
+Only flag commits that START with problematic keywords.
 
 If found, warn:
 ```
@@ -92,10 +134,28 @@ This will create the branch on remote. Continue? (yes/no)
 
 ### Check 5: Remote Changes
 
-Check if remote has new commits:
+Check if we need to fetch (only if remote branch exists):
 ```bash
-git fetch origin [current-branch] 2>/dev/null
-git rev-list HEAD..origin/[current-branch] --count
+# Only fetch if last fetch was >60 seconds ago (avoid slow fetches)
+LAST_FETCH=$(stat -f %m .git/FETCH_HEAD 2>/dev/null || stat -c %Y .git/FETCH_HEAD 2>/dev/null || echo 0)
+NOW=$(date +%s)
+AGE=$((NOW - LAST_FETCH))
+
+if [ $AGE -gt 60 ] && git ls-remote --heads origin "$CURRENT_BRANCH" | grep -q "$CURRENT_BRANCH"; then
+  echo "🔄 Checking for remote changes..."
+  git fetch origin $CURRENT_BRANCH --quiet 2>/dev/null
+fi
+```
+
+Check if remote has new commits (only if remote exists):
+```bash
+if git ls-remote --heads origin "$CURRENT_BRANCH" | grep -q "$CURRENT_BRANCH"; then
+  BEHIND=$(git rev-list HEAD..origin/$CURRENT_BRANCH --count 2>/dev/null || echo "0")
+
+  if [ "$BEHIND" -gt 0 ]; then
+    echo "⚠️ Remote has $BEHIND new commit(s)"
+  fi
+fi
 ```
 
 If remote is ahead:

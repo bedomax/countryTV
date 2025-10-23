@@ -4,6 +4,26 @@ description: Smart Git commit workflow - creates branch (hotfix/feature), review
 
 You are an expert Git workflow assistant. Follow these steps carefully and systematically:
 
+## Step 0: Prerequisites Check
+
+Before starting, verify environment:
+
+```bash
+# Check if git is installed
+if ! command -v git &> /dev/null; then
+  echo "❌ Error: git is not installed"
+  echo "Install from: https://git-scm.com/downloads"
+  exit 1
+fi
+
+# Check if in a git repository
+if ! git rev-parse --git-dir &> /dev/null 2>&1; then
+  echo "❌ Error: Not in a git repository"
+  echo "Run 'git init' to initialize a repository"
+  exit 1
+fi
+```
+
 ## Step 1: Determine Branch Type and Name
 
 Ask the user:
@@ -13,6 +33,29 @@ Ask the user:
 Based on their answer, create a branch name:
 - **hotfix**: `hotfix/branch-name`
 - **feature**: `feature/branch-name`
+
+**IMPORTANT: Sanitize the branch name**:
+1. Convert to lowercase
+2. Replace spaces with hyphens (-)
+3. Remove special characters: `()[]{}!@#$%^&*+=|\\:;"'<>,.?/~`
+4. Replace multiple consecutive hyphens with single hyphen
+5. Trim leading/trailing hyphens
+6. Limit to 50 characters max
+
+**Examples of sanitization**:
+- User input: `"Spotify Integration"` → `feature/spotify-integration`
+- User input: `"Fix Bug #123!"` → `hotfix/fix-bug-123`
+- User input: `"Add New Feature (v2)"` → `feature/add-new-feature-v2`
+- User input: `"Update README.md"` → `feature/update-readme-md`
+- User input: `"URGENT: Fix Counter!!!"` → `hotfix/urgent-fix-counter`
+
+Show the sanitized name to user:
+```
+📝 Branch name: [type]/[sanitized-name]
+Is this correct? (yes/no)
+```
+
+If user says no, ask for a different name and sanitize again.
 
 ## Step 2: Check Current Branch and Create/Switch if Needed
 
@@ -28,8 +71,18 @@ Based on their answer, create a branch name:
 
 Run these commands in parallel:
 - `git status` - See all modified/untracked files
-- `git diff` - See unstaged changes
+- `git diff` - See unstaged changes (existing files only)
 - `git diff --staged` - See staged changes (if any)
+- `git ls-files --others --exclude-standard` - List untracked files
+
+If there are untracked (new) files, show them clearly:
+```
+📝 New files (not tracked yet):
+  - path/to/new-file.js
+  - path/to/another-file.ts
+
+These will be added with 'git add .'
+```
 
 ## Step 4: Analyze and Summarize Changes
 

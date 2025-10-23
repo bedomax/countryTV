@@ -4,6 +4,27 @@ description: Push changes and create PR with automatic code review and human-fri
 
 You are an expert Git workflow assistant and PR writer. Push changes safely and create a well-written Pull Request.
 
+## Step 0: Prerequisites Check
+
+Verify environment:
+```bash
+if ! command -v git &> /dev/null; then
+  echo "❌ git not installed"
+  exit 1
+fi
+
+if ! git rev-parse --git-dir &> /dev/null 2>&1; then
+  echo "❌ Not a git repository"
+  exit 1
+fi
+
+if ! command -v gh &> /dev/null; then
+  echo "❌ GitHub CLI not installed"
+  echo "Install: brew install gh (Mac) or https://cli.github.com"
+  exit 1
+fi
+```
+
 ## Step 1: Pre-Push Validation
 
 First, perform all validations from the `/push` command:
@@ -11,7 +32,7 @@ First, perform all validations from the `/push` command:
 1. Check for uncommitted changes
 2. Get current branch info
 3. Review commits to be pushed
-4. Check for suspicious commits (WIP, temp, test)
+4. Check for suspicious commits (WIP, temp, debug - use regex ^(WIP|temp|debug|tmp):)
 5. Verify remote tracking
 6. Check for remote changes
 
@@ -30,14 +51,28 @@ Show:
 ✅ Push successful!
 ```
 
-## Step 3: Automatic Code Review
+## Step 3: Automatic Code Review (Optional)
 
-Before creating the PR, perform an automatic code review:
-
+Ask user for review preference:
 ```
-🔍 Running code review before creating PR...
+🔍 Quick code review before creating PR?
+1. Yes, full review (20-30 seconds)
+2. Quick security check only (5 seconds) [RECOMMENDED]
+3. Skip review, create PR immediately
+
+Choose (1/2/3, default: 2): _
 ```
 
+If user chooses **Option 2 (Quick check)** - DEFAULT:
+- Only scan for: API keys, passwords, secrets, .env files
+- Check for: hardcoded credentials, exposed tokens
+- Takes <5 seconds
+- Show brief result:
+```
+✅ Security check: No exposed secrets detected
+```
+
+If user chooses **Option 1 (Full review)**:
 Run these commands to analyze changes:
 ```bash
 git diff origin/main...HEAD        # Full diff vs main
@@ -45,8 +80,7 @@ git log origin/main..HEAD --oneline # All commits
 git diff --stat origin/main...HEAD  # Files changed summary
 ```
 
-Analyze the changes and provide a **quick assessment**:
-
+Analyze and provide assessment:
 ```
 📊 Code Review Summary
 
@@ -78,7 +112,7 @@ What would you like to do?
 3. Show detailed review
 ```
 
-If issues are minor or none, continue automatically.
+If user chooses **Option 3 (Skip)**: Continue immediately to PR creation.
 
 ## Step 4: Generate PR Title
 
@@ -100,17 +134,48 @@ Based on the commits and changes, create a **clear, descriptive title**:
 - ❌ `WIP: working on things` (not descriptive)
 - ❌ `🎉 New feature` (no emojis)
 
-Show the generated title:
+Show the generated title with streamlined input:
 ```
-📝 PR Title:
-[generated-title]
+📝 PR Title: "[generated-title]"
 
-Is this title good? (yes/no/edit)
+Press ENTER to accept, or type new title:
+> _
 ```
 
-If user says "edit", ask: "What title would you like?"
+**Flow**:
+- If user presses ENTER → use generated title
+- If user types text → use their title
+- No "yes/no" question - faster workflow!
 
-## Step 5: Generate PR Description
+## Step 5: Detect Base Branch Automatically
+
+Auto-detect target branch based on naming convention:
+```bash
+CURRENT_BRANCH=$(git branch --show-current)
+
+# Smart detection
+if [[ $CURRENT_BRANCH == hotfix/* ]]; then
+  BASE_BRANCH="main"  # or "production" if exists
+elif [[ $CURRENT_BRANCH == feature/* ]]; then
+  # Check if develop exists
+  if git ls-remote --heads origin develop | grep -q develop; then
+    BASE_BRANCH="develop"
+  else
+    BASE_BRANCH="main"
+  fi
+else
+  BASE_BRANCH="main"  # default
+fi
+```
+
+Show detected base:
+```
+🎯 Target branch: $BASE_BRANCH (auto-detected)
+Press ENTER to confirm, or type different branch:
+> _
+```
+
+## Step 6: Generate PR Description
 
 Create a **human-friendly, well-structured** PR description.
 
@@ -128,7 +193,43 @@ Create a **human-friendly, well-structured** PR description.
 - ❌ Don't use engineer-speak
 - ❌ Don't be too brief or too verbose
 
-**PR Description Template**:
+**Adapt length to PR size**:
+
+Check diff size:
+```bash
+LINES_CHANGED=$(git diff --stat origin/main...HEAD | tail -1 | awk '{print $4+$6}')
+```
+
+**For SMALL PRs (<50 lines changed)** - Use short template:
+```markdown
+## What Changed
+[1-2 sentences]
+
+## Testing
+[Quick test if needed]
+
+---
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+```
+
+**For MEDIUM PRs (50-200 lines)** - Use medium template:
+```markdown
+## What's New
+[1-2 sentences]
+
+## What Changed
+- [Key changes]
+
+## How to Test
+[Steps]
+
+---
+🤖 Generated with [Claude Code](https://claude.com/claude-code)
+```
+
+**For LARGE PRs (>200 lines)** - Use full template below:
+
+**PR Description Template (Full)**:
 
 ```markdown
 ## What's New
@@ -253,7 +354,7 @@ Users reported feeling alone when they saw "0 viewers" despite others being onli
 - [x] No breaking changes
 ```
 
-Show the generated description:
+Show the generated description with streamlined input:
 ```
 📄 PR Description:
 
@@ -261,27 +362,18 @@ Show the generated description:
 
 ---
 
-Is this description good? (yes/no/edit)
+Press ENTER to create PR, or type 'edit' to modify:
+> _
 ```
 
-If user says "edit", ask: "What would you like to change?"
-
-## Step 6: Determine Base Branch
-
-Ask the user:
-```
-🎯 Which branch should this PR target?
-
-1. main (default)
-2. develop
-3. Other (specify)
-
-Choose: (1/2/3 or branch name)
-```
-
-If user doesn't respond, default to `main`.
+**Flow**:
+- If user presses ENTER → create PR immediately
+- If user types 'edit' → let them modify
+- Default action: create PR (fastest workflow)
 
 ## Step 7: Create Pull Request
+
+Use GitHub CLI to create the PR (base branch was auto-detected in Step 5):
 
 Use GitHub CLI to create the PR:
 
@@ -334,47 +426,36 @@ Next steps:
 Great job! 🎉
 ```
 
-## Step 9: Optional Actions
+## Step 9: Optional Actions (Streamlined)
 
-Ask the user:
+**Simplified approach** - Only ask if user wants to do more:
+
 ```
-Would you like to:
-1. Add reviewers
-2. Add labels
-3. View PR in browser
-4. Nothing, I'm done
-
-Choose: (1/2/3/4)
+Want to add reviewers or labels? (yes/no, default: no):
+> _
 ```
 
-Handle each option:
+If user presses ENTER or says "no" → Done! Exit successfully.
 
-**1. Add reviewers:**
+If user says "yes":
 ```
-Who should review this PR? (GitHub usernames, comma-separated)
-Example: @user1,@user2
-```
+What would you like to add?
+- Reviewers: @user1,@user2
+- Labels: enhancement,bug
+- Or press ENTER to skip
 
-Then run:
-```bash
-gh pr edit [number] --add-reviewer [users]
-```
-
-**2. Add labels:**
-```
-Which labels? (comma-separated)
-Common: enhancement, bug, documentation, performance
+> _
 ```
 
-Then run:
-```bash
-gh pr edit [number] --add-label [labels]
-```
+Parse input and apply:
+- If contains @ → treat as reviewers
+- If contains letters → treat as labels
+- Apply both if needed
 
-**3. View in browser:**
-```bash
-gh pr view [number] --web
-```
+**Benefits**:
+- 1 question instead of 4
+- Default is "done" (fast exit)
+- Power users can still customize
 
 ## Error Handling
 
